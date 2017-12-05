@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CloudBookReader</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="free_reading">闲读</string>
+    <string name="daily_recommend">每日推荐</string>
+    <string name="hot_rank_list">热映榜</string>
+</resources>
