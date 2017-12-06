@@ -6,4 +6,6 @@
     <string name="free_reading">闲读</string>
     <string name="daily_recommend">每日推荐</string>
     <string name="hot_rank_list">热映榜</string>
+    <string name="author">作者：</string>
+    <string name="short_desc">简介：</string>
 </resources>

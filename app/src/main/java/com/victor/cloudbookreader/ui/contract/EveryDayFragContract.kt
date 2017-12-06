@@ -1,5 +1,6 @@
 package com.victor.cloudbookreader.ui.contract
 
+import com.victor.cloudbookreader.bean.Recommend
 import com.victor.cloudbookreader.ui.base.BasePresenter
 import com.victor.cloudbookreader.ui.base.BaseView
 
@@ -15,6 +16,7 @@ interface EveryDayFragContract {
         fun setEveryDayCount(count: Int)
 
         fun setImageUrls(imageUrls: MutableList<String>)
+
     }
 
     interface Presenter : BasePresenter {

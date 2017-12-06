@@ -1,13 +1,14 @@
 package com.victor.cloudbookreader.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.victor.cloudbookreader.R
+import com.victor.cloudbookreader.ui.activity.BookListActivity
 import com.victor.cloudbookreader.ui.base.BaseFragment
 import com.victor.cloudbookreader.ui.contract.EveryDayFragContract
 import com.victor.cloudbookreader.ui.presenter.EveryDayFragPresenter
 import com.victor.cloudbookreader.widget.GlideImageLoader
-import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.fragment_everyday.*
 
 /**
@@ -44,7 +45,12 @@ class EveryDayFragment : BaseFragment(), EveryDayFragContract.View {
 
     override fun initView() {
         image_banner.setImageLoader(GlideImageLoader())
-//        image_banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE)
+        daily_btn.setOnClickListener {
+            val intent = Intent(activity, BookListActivity::class.java)
+            activity!!.startActivity(intent)
+        }
+
+
 
     }
 

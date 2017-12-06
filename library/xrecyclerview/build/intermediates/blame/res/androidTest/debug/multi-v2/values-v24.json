@@ -1,0 +1,36 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/victor/AndroidProject/CloudBookReader/library/xrecyclerview/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-v24/values-v24.xml",
+            "map": [
+                {
+                    "source": "/home/victor/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/b20e36cf91078aed753e0367aae7d54d/res/values-v24/values-v24.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "55,212,347,416,480,549",
+                        "endColumns": "156,134,68,63,68,69",
+                        "endOffsets": "207,342,411,475,544,614"
+                    }
+                },
+                {
+                    "source": "/home/victor/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/95e272dd034c1a6b09813a98029d09ef/res/values-v24/values-v24.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,121,182,248",
+                        "endColumns": "65,60,65,66",
+                        "endOffsets": "116,177,243,310"
+                    },
+                    "to": {
+                        "startLines": "8,9,10,11",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "619,685,746,812",
+                        "endColumns": "65,60,65,66",
+                        "endOffsets": "680,741,807,874"
+                    }
+                }
+            ]
+        }
+    ]
+}
