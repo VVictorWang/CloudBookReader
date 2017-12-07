@@ -36,4 +36,10 @@ class BookApi(client: OkHttpClient) {
     }
 
     fun getRecommend(gender: String) = service.getRecommend(gender)
+
+    val hotWord = service.getHotWord()
+
+    fun searchBook(keyWord: String) = service.searchBooks(keyWord)
+
+    fun autoComplete(keyWord: String) = service.autoComplete(keyWord)
 }

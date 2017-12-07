@@ -100,6 +100,14 @@
 
                 </HorizontalScrollView>
 
+                <ImageButton
+                    android:id="@+id/search_btn"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/actionbar_search"
+                    />
             </android.support.v7.widget.Toolbar>
 
             <FrameLayout

@@ -1,7 +1,9 @@
 package com.victor.cloudbookreader
 
+import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import com.victor.cloudbookreader.ui.activity.SearchActivity
 import com.victor.cloudbookreader.ui.adapter.MyFragmnetPageAdapter
 import com.victor.cloudbookreader.ui.base.BaseActivity
 import com.victor.cloudbookreader.ui.fragment.MainFragment
@@ -75,6 +77,7 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
                 vp_content.currentItem = 2
             }
         }
+        search_btn.setOnClickListener { startActivity(Intent(this, SearchActivity::class.java)) }
     }
 
 

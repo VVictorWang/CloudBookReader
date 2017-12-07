@@ -17,6 +17,8 @@ interface EveryDayFragContract {
 
         fun setImageUrls(imageUrls: MutableList<String>)
 
+        fun setRecommendData(recommend: Recommend)
+
     }
 
     interface Presenter : BasePresenter {

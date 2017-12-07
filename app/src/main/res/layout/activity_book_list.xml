@@ -7,10 +7,18 @@
     android:layout_height="match_parent"
     tools:context="com.victor.cloudbookreader.ui.activity.BookListActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/header_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        />
+
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
         android:scrollbarSize="4dp"
         android:scrollbarThumbVertical="@color/tabBackground"
         android:scrollbars="vertical"

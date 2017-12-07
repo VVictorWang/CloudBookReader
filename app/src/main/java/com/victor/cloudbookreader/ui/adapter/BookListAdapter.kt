@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.victor.cloudbookreader.R
 import com.victor.cloudbookreader.bean.Constants
 import com.victor.cloudbookreader.bean.Recommend
+import com.victor.cloudbookreader.bean.SearchResult
 import kotlinx.android.synthetic.main.book_list_item.view.*
 
 /**
@@ -16,14 +17,27 @@ import kotlinx.android.synthetic.main.book_list_item.view.*
  * @email chengyiwang@hustunique.com
  * @blog www.victorwan.cn                                            #
  */
-class BookListAdapter(var context: Context, var item: Recommend) : RecyclerView.Adapter<BookListAdapter.BookListViewHolder>() {
+class BookListAdapter<T>(var context: Context, var item: T) : RecyclerView.Adapter<BookListAdapter.BookListViewHolder>() {
     override fun getItemCount(): Int {
-        return item.books.size
+        when (item) {
+            is Recommend? -> return (item!! as Recommend).books.size
+            is SearchResult? -> return (item!! as SearchResult).books.size
+        }
+        return 0
     }
 
     override fun onBindViewHolder(holder: BookListViewHolder?, position: Int) {
-        if (item.ok) {
-            holder?.bind(item.books[position])
+        when (item) {
+            is Recommend? -> {
+                if ((item!! as Recommend).ok) {
+                    holder?.bind((item as Recommend).books[position])
+                }
+            }
+            is SearchResult? -> {
+                if ((item!! as SearchResult).ok) {
+                    holder?.bind((item as SearchResult).books[position])
+                }
+            }
         }
     }
 
@@ -31,7 +45,7 @@ class BookListAdapter(var context: Context, var item: Recommend) : RecyclerView.
         return BookListViewHolder(parent!!)
     }
 
-    fun setData(item: Recommend) {
+    fun setData(item: T) {
         this.item = item
         notifyDataSetChanged()
     }
@@ -39,6 +53,13 @@ class BookListAdapter(var context: Context, var item: Recommend) : RecyclerView.
     class BookListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.book_list_item, null)) {
         fun bind(item: Recommend.RecommendBooksBean) = with(itemView) {
+            tv_one_title.text = item.title
+            book_author.text = item.author
+            Glide.with(context).load(Constants.IMG_BASE_URL + item.cover).into(book_cover)
+            short_desc.text = item.shortIntro
+        }
+
+        fun bind(item: SearchResult.SearchBooksBean) = with(itemView) {
             tv_one_title.text = item.title
             book_author.text = item.author
             Glide.with(context).load(Constants.IMG_BASE_URL + item.cover).into(book_cover)

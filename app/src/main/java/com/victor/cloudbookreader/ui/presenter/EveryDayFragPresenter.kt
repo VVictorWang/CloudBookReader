@@ -32,6 +32,7 @@ class EveryDayFragPresenter(val mView: EveryDayFragContract.View) : EveryDayFrag
                     imageUrls.add(Constants.IMG_BASE_URL + book.cover)
                 }
                 mView.setImageUrls(imageUrls)
+                mView.setRecommendData(data)
             }
         })
     }

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.victor.cloudbookreader.ui.activity.SearchActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorTheme">
+
+        <ImageView
+            android:id="@+id/search_btn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/actionbar_search"
+            />
+
+        <EditText
+            android:id="@+id/search_word"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            android:background="@null"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            />
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/auto_complete_list"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginLeft="50dp"
+        android:clipToPadding="true"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar">
+
+        <RelativeLayout
+            android:id="@+id/hot_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                android:id="@+id/hot_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="热门搜索"
+                android:textSize="12sp"
+                />
+
+            <com.victor.cloudbookreader.widget.TagGroup
+                android:id="@+id/hot_words"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hot_title"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                />
+
+
+        </RelativeLayout>
+
+        <com.example.xrecyclerview.XRecyclerView
+            android:id="@+id/search_result_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hot_search"
+            />
+    </RelativeLayout>
+</RelativeLayout>

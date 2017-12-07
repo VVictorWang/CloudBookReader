@@ -21,6 +21,10 @@
         </activity>
         <activity android:name=".ui.activity.BookListActivity">
         </activity>
+        <activity android:name=".ui.activity.SearchActivity">
+        </activity>
+        <activity android:name=".ui.activity.BookDetailActivity">
+        </activity>
     </application>
 
 </manifest>

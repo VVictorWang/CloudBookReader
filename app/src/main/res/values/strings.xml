@@ -8,4 +8,8 @@
     <string name="hot_rank_list">热映榜</string>
     <string name="author">作者：</string>
     <string name="short_desc">简介：</string>
+    <string name="recommend">推荐</string>
+    <string name="recently_viewed">最近常看</string>
+    <string name="more">更多</string>
+    <string name="please_input_search_content">请输入搜索内容</string>
 </resources>
