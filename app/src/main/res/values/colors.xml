@@ -45,6 +45,8 @@
 
     <!--透明色-->
     <color name="colorTransparent">#00000000</color>
+
+    <color name="toolbarBackground_default">#384F53</color>
     <!--半透明-->
     <color name="colorBanTransparent">#11000000</color>
     <!--首页item文字颜色-->

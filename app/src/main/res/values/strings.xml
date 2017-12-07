@@ -12,4 +12,6 @@
     <string name="recently_viewed">最近常看</string>
     <string name="more">更多</string>
     <string name="please_input_search_content">请输入搜索内容</string>
+    <string name="remainning_rate">读者留存率：</string>
+    <string name="is_readding">在追</string>
 </resources>

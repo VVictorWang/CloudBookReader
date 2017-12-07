@@ -36,9 +36,15 @@ class SearchActivity : BaseActivity() {
         bookAdapter = BookListAdapter(this, SearchResult(false, listOf()))
         search_result_list.adapter = bookAdapter
 
-        completeAdapter = AutoCompleteAdapter(arrayListOf())
+        completeAdapter = AutoCompleteAdapter(arrayListOf(), object : AutoCompleteAdapter.OnItemClickListenner {
+            override fun onClick(text: String) {
+                search(text)
+                completeAdapter!!.hide()
+            }
+        })
         auto_complete_list.layoutManager = LinearLayoutManager(this)
         auto_complete_list.adapter = completeAdapter
+        auto_complete_list.bringToFront()
     }
 
     override fun initEvent() {
@@ -50,19 +56,22 @@ class SearchActivity : BaseActivity() {
             }
         }
 
+
         hot_words.setOnTagClickListener { tag -> search(tag) }
+
         search_word.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
+
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (p0 == null || "".equals(p0.toString())) {
+            override fun onTextChanged(newText: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (newText == null || "".equals(newText.toString())) {
                     completeAdapter!!.setData(listOf())
                 } else {
-                    BookReposity.getInstanc().autoComplete(p0.toString(), object : RepositoryCallBack<AutoComplete> {
+                    BookReposity.getInstanc().autoComplete(newText.toString(), object : RepositoryCallBack<AutoComplete> {
                         override fun callSuccess(data: AutoComplete) {
                             showAutoComplte(data.keywords)
                         }
@@ -73,6 +82,7 @@ class SearchActivity : BaseActivity() {
                 }
             }
         })
+
     }
 
     fun showAutoComplte(list: List<String>) {

@@ -42,4 +42,6 @@ class BookApi(client: OkHttpClient) {
     fun searchBook(keyWord: String) = service.searchBooks(keyWord)
 
     fun autoComplete(keyWord: String) = service.autoComplete(keyWord)
+
+    fun getBookDeatil(bookId: String) = service.getBookDetail(bookId)
 }

@@ -1,6 +1,7 @@
 package com.victor.cloudbookreader.ui.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.victor.cloudbookreader.R
 import com.victor.cloudbookreader.bean.Constants
 import com.victor.cloudbookreader.bean.Recommend
 import com.victor.cloudbookreader.bean.SearchResult
+import com.victor.cloudbookreader.ui.activity.BookDetailActivity
 import kotlinx.android.synthetic.main.book_list_item.view.*
 
 /**
@@ -57,6 +59,15 @@ class BookListAdapter<T>(var context: Context, var item: T) : RecyclerView.Adapt
             book_author.text = item.author
             Glide.with(context).load(Constants.IMG_BASE_URL + item.cover).into(book_cover)
             short_desc.text = item.shortIntro
+            setMyClickListener(item._id, context)
+        }
+
+        fun setMyClickListener(bookId: String, context: Context) {
+            itemView.setOnClickListener {
+                val intent = Intent(context, BookDetailActivity::class.java)
+                intent.putExtra("id", bookId)
+                context.startActivity(intent)
+            }
         }
 
         fun bind(item: SearchResult.SearchBooksBean) = with(itemView) {
@@ -64,6 +75,7 @@ class BookListAdapter<T>(var context: Context, var item: T) : RecyclerView.Adapt
             book_author.text = item.author
             Glide.with(context).load(Constants.IMG_BASE_URL + item.cover).into(book_cover)
             short_desc.text = item.shortIntro
+            setMyClickListener(item._id, context)
         }
     }
 }

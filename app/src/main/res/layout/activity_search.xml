@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context="com.victor.cloudbookreader.ui.activity.SearchActivity">
 
+    <!--<com.lapism.searchview.SearchView-->
+    <!--android:id="@+id/search_toolbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/colorTheme"-->
+    <!--app:search_background_color="@color/colorTheme"-->
+    <!--app:search_icon_color="@color/colorWhite"-->
+    <!--app:search_navigation_icon="@drawable/actionbar_search"-->
+    <!--app:search_shadow="false"-->
+    <!--app:search_shadow_color="false"-->
+    <!--app:search_text_color="@color/colorWhite"-->
+    <!--app:search_theme="light"-->
+    <!--app:search_version="toolbar"-->
+    <!--app:search_version_margins="menu_item"-->
+    <!--/>-->
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -40,6 +56,7 @@
         android:layout_below="@+id/toolbar"
         android:layout_marginLeft="50dp"
         android:clipToPadding="true"
+        android:elevation="10dp"
         />
 
     <RelativeLayout

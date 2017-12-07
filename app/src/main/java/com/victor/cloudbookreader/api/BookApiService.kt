@@ -1,12 +1,10 @@
 package com.victor.cloudbookreader.api
 
-import com.victor.cloudbookreader.bean.AutoComplete
-import com.victor.cloudbookreader.bean.HotWord
-import com.victor.cloudbookreader.bean.Recommend
-import com.victor.cloudbookreader.bean.SearchResult
+import com.victor.cloudbookreader.bean.*
 import io.reactivex.Flowable
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -28,6 +26,9 @@ interface BookApiService {
 
     @GET("book/auto-complete")
     fun autoComplete(@Query("query") keyWord: String): Flowable<Response<AutoComplete>>
+
+    @GET("book/{bookId}")
+    fun getBookDetail(@Path("bookId") bookId: String): Flowable<Response<BookDetail>>
 
 
 }
