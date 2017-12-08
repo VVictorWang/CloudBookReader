@@ -1,6 +1,8 @@
 package com.victor.cloudbookreader.bean
 
 import android.graphics.Color
+import com.victor.cloudbookreader.ReaderApplication
+import com.victor.cloudbookreader.utils.FileUtils
 
 /**
  * @author victor
@@ -14,6 +16,20 @@ object Constants {
     val API_BASE_URL = "http://api.zhuishushenqi.com"
 
     val IMG_BASE_URL = "http://statics.zhuishushenqi.com"
+
+    var PATH_DATA = FileUtils.createRootPath(ReaderApplication.readerApplication) + "/cache"
+    var PATH_TXT = PATH_DATA + "/book/"
+    var PATH_EPUB = PATH_DATA + "/epub"
+
+    var PATH_CHM = PATH_DATA + "/chm"
+
+    val SUFFIX_TXT = ".txt"
+    val SUFFIX_PDF = ".pdf"
+    val SUFFIX_EPUB = ".epub"
+    val SUFFIX_ZIP = ".zip"
+    val SUFFIX_CHM = ".chm"
+
+    val CHAPTER = "http://chapter2.zhuishushenqi.com/chapter/"
 
     val tagColors = intArrayOf(Color.parseColor("#90C5F0"), Color.parseColor("#91CED5"),
             Color.parseColor("#F88F55"), Color.parseColor("#C0AFD0"),

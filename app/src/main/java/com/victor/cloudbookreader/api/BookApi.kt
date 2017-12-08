@@ -1,5 +1,6 @@
 package com.victor.cloudbookreader.api
 
+import com.google.gson.GsonBuilder
 import com.victor.cloudbookreader.bean.Constants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -27,8 +28,9 @@ class BookApi(client: OkHttpClient) {
     }
 
     init {
+        val gson = GsonBuilder().setLenient().create()
         val retrofit = Retrofit.Builder().baseUrl(Constants.API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build()
@@ -44,4 +46,8 @@ class BookApi(client: OkHttpClient) {
     fun autoComplete(keyWord: String) = service.autoComplete(keyWord)
 
     fun getBookDeatil(bookId: String) = service.getBookDetail(bookId)
+
+    fun getBookChapter(bookId: String) = service.getBookChapter(bookId, "chapters")
+
+    fun getChapterDetail(url: String) = service.getChapterContent(Constants.CHAPTER + url)
 }

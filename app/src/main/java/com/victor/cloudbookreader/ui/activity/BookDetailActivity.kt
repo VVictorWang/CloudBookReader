@@ -1,5 +1,6 @@
 package com.victor.cloudbookreader.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.bumptech.glide.Glide
@@ -27,6 +28,11 @@ class BookDetailActivity : BaseHeaderActivity() {
 //        setToolBar()
 //        top_layout.bringToFront()
         getData()
+        test.setOnClickListener {
+            val intent = Intent(this, ReadActivity::class.java)
+            intent.putExtra("bookId", bookId!!)
+            startActivity(intent)
+        }
     }
 
 
