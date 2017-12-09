@@ -1,6 +1,9 @@
 package com.victor.cloudbookreader.utils
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.Resources
+import android.telephony.TelephonyManager
 import com.victor.cloudbookreader.ReaderApplication
 
 /**
@@ -83,6 +86,13 @@ object Utils {
      */
     fun getTwoSpaces(): String {
         return "\u3000\u3000"
+    }
+
+    @SuppressLint("MissingPermission", "HardwareIds")
+    fun getIMEI(context: Context): String {
+        val telephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        val IMEI = telephonyManager.getDeviceId()
+        return IMEI;
     }
 
 }

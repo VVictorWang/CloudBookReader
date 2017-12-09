@@ -1,6 +1,7 @@
 package com.victor.cloudbookreader.ui.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.victor.cloudbookreader.R
 import com.victor.cloudbookreader.bean.BookChapter
@@ -61,6 +62,7 @@ class ReadActivity : BaseActivity() {
     }
 
     fun getData() {
+        Log.d("@vic", bookId!!)
         BookReposity.getInstanc().getBookChapter(bookId!!,object: RepositoryCallBack<BookDetailTemp> {
             override fun callSuccess(data: BookDetailTemp) {
 

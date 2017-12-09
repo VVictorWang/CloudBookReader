@@ -31,7 +31,7 @@ interface BookApiService {
     @GET("book/{bookId}")
     fun getBookDetail(@Path("bookId") bookId: String): Flowable<Response<BookDetail>>
 
-    @GET("mix-atoc/{bookId}")
+    @GET("/mix-atoc/{bookId}")
     fun getBookChapter(@Path("bookId") bookId: String, @Query("view") chapters: String): Flowable<Response<BookDetailTemp>>
 
     @GET()

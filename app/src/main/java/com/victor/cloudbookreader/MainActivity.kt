@@ -1,6 +1,10 @@
 package com.victor.cloudbookreader
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import com.victor.cloudbookreader.ui.activity.SearchActivity
@@ -50,6 +54,15 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         vp_content.currentItem = 0
         iv_title_main.isSelected = true
         vp_content.addOnPageChangeListener(this)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) !=
+                PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_PHONE_STATE), 100)
+        }
+
+        super.onCreate(savedInstanceState)
     }
 
     override fun initEvent() {

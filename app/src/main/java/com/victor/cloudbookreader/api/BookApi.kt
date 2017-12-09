@@ -28,9 +28,8 @@ class BookApi(client: OkHttpClient) {
     }
 
     init {
-        val gson = GsonBuilder().setLenient().create()
         val retrofit = Retrofit.Builder().baseUrl(Constants.API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build()

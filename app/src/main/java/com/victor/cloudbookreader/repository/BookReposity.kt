@@ -1,13 +1,20 @@
 package com.victor.cloudbookreader.repository
 
+import com.victor.cloudbookreader.ReaderApplication
 import com.victor.cloudbookreader.api.BookApi
+import com.victor.cloudbookreader.api.HeaderInterceptor
+import com.victor.cloudbookreader.api.Logger
+import com.victor.cloudbookreader.api.LoggingInterceptor
 import com.victor.cloudbookreader.bean.*
+import com.victor.cloudbookreader.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 import retrofit2.Response
+import java.util.concurrent.TimeUnit
 
 /**
  * @author victor
@@ -20,7 +27,16 @@ class BookReposity {
     private val bookApi: BookApi
 
     init {
-        bookApi = BookApi.getInstance(OkHttpClient())
+        val logging = LoggingInterceptor(Logger())
+        logging.setLevel(LoggingInterceptor.Level.BODY)
+        val builder = OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(20 * 1000, TimeUnit.MILLISECONDS)
+                .readTimeout(20 * 1000, TimeUnit.MILLISECONDS)
+                .retryOnConnectionFailure(true) // 失败重发
+                .addInterceptor(HeaderInterceptor())
+                .addInterceptor(logging)
+        bookApi = BookApi.getInstance(builder.build())
     }
 
     companion object {
