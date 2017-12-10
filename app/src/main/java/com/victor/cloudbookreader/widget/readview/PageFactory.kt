@@ -6,7 +6,7 @@ import android.support.v4.content.ContextCompat
 import android.widget.ProgressBar
 import com.victor.cloudbookreader.R
 import com.victor.cloudbookreader.ReaderApplication
-import com.victor.cloudbookreader.bean.BookDetailTemp
+import com.victor.cloudbookreader.bean.BookChapter
 import com.victor.cloudbookreader.utils.FileUtils
 import com.victor.cloudbookreader.utils.Utils
 import java.io.File
@@ -37,7 +37,7 @@ class PageFactory(private val mContext: Context,
                    * 字体大小
                    */
                   private var mFontSize: Int, private val bookId: String,
-                  private val chaptersList: List<BookDetailTemp.MixTocBean.ChaptersBean>) {
+                  private val chaptersList: List<BookChapter.MixTocBean.ChaptersBean>) {
     /**
      * 文字区域宽高
      */
@@ -125,7 +125,7 @@ class PageFactory(private val mContext: Context,
             nextPage()
         }
 
-    constructor(context: Context, bookId: String, chaptersList: List<BookDetailTemp.MixTocBean.ChaptersBean>) : this(context, Utils.getScreenWidth(), Utils.getScreenHeight(),
+    constructor(context: Context, bookId: String, chaptersList: List<BookChapter.MixTocBean.ChaptersBean>) : this(context, Utils.getScreenWidth(), Utils.getScreenHeight(),
             //SettingManager.getInstance().getReadFontSize(bookId),
             12,
             bookId, chaptersList) {

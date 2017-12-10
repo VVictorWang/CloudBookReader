@@ -51,14 +51,14 @@ import android.graphics.Canvas
 import android.graphics.Path
 import android.graphics.Region
 import android.graphics.drawable.GradientDrawable
-import com.victor.cloudbookreader.bean.BookDetailTemp
+import com.victor.cloudbookreader.bean.BookChapter
 
 /**
  * @author yuyh.
  * @date 2016/10/18.
  */
 class OverlappedWidget(context: Context, bookId: String,
-                       chaptersList: List<BookDetailTemp.MixTocBean.ChaptersBean>,
+                       chaptersList: List<BookChapter.MixTocBean.ChaptersBean>,
                        listener: OnReadStateChangeListener) : BaseReadView(context, bookId, chaptersList, listener) {
 
     private val mPath0: Path

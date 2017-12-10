@@ -1,6 +1,7 @@
 package com.victor.cloudbookreader
 
 import android.app.Application
+import com.facebook.stetho.Stetho
 
 /**
  * @author victor
@@ -14,6 +15,7 @@ class ReaderApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         readerApplication = this
+        Stetho.initializeWithDefaults(this)
     }
 
     companion object {

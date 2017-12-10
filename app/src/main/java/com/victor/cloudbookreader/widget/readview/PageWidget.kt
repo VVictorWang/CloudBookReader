@@ -11,7 +11,6 @@ import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.GradientDrawable
 import com.victor.cloudbookreader.bean.BookChapter
-import com.victor.cloudbookreader.bean.BookDetailTemp
 
 /**
  * Copyright 2016 JustWayward Team
@@ -34,7 +33,7 @@ import com.victor.cloudbookreader.bean.BookDetailTemp
 
 
 class PageWidget(context: Context, bookId: String,
-                 chaptersList: List<BookDetailTemp.MixTocBean.ChaptersBean>,
+                 chaptersList: List<BookChapter.MixTocBean.ChaptersBean>,
                  listener: OnReadStateChangeListener) : BaseReadView(context, bookId, chaptersList, listener) {
 
     private var mCornerX = 1 // 拖拽点对应的页脚

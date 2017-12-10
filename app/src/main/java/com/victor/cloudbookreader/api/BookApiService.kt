@@ -6,7 +6,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import retrofit2.http.Url
 
 /**
  * @author victor
@@ -32,9 +31,9 @@ interface BookApiService {
     fun getBookDetail(@Path("bookId") bookId: String): Flowable<Response<BookDetail>>
 
     @GET("/mix-atoc/{bookId}")
-    fun getBookChapter(@Path("bookId") bookId: String, @Query("view") chapters: String): Flowable<Response<BookDetailTemp>>
+    fun getBookChapter(@Path("bookId") bookId: String, @Query("view") chapters: String): Flowable<Response<BookChapter>>
 
-    @GET()
-    fun getChapterContent(@Url url: String): Flowable<Response<ChapterDetail>>
+    @GET("http://chapter2.zhuishushenqi.com/chapter/{url}")
+    fun getChapterContent(@Path("url") url: String): Flowable<Response<ChapterDetail>>
 
 }

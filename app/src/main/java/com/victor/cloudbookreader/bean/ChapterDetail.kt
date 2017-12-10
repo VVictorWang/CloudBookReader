@@ -7,7 +7,7 @@ package com.victor.cloudbookreader.bean
  * @blog www.victorwan.cn                                            #
  */
 
-data class ChapterDetail(var isOk: Boolean,
+data class ChapterDetail(var ok: Boolean,
                          var chapter: ChapterBean) {
     /**
      * ok : true

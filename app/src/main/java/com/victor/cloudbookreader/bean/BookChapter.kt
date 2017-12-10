@@ -2,49 +2,55 @@ package com.victor.cloudbookreader.bean
 
 /**
  * @author victor
- * @date 12/7/17
+ * @date 12/8/17
  * @email chengyiwang@hustunique.com
  * @blog www.victorwan.cn                                            #
  */
 
-data class BookChapter(var _id: String,
-                       var link: String,
-                       var source: String,
-                       var name: String,
-                       var book: String,
-                       var updated: String,
-                       var host: String,
-                       var chapters: List<ChaptersBean>) {
+data class BookChapter(var mixToc: MixTocBean,
+                       var ok: Boolean) {
     /**
-     * _id : 577b477dbd86a4bd3f8bf1b2
-     * link : http://www.biquge.la/book/16431/
-     * source : biquge
-     * name : 笔趣阁
-     * book : 57206c3539a913ad65d35c7b
-     * chapters : [{"title":"第一章 他叫白小纯","link":"http://www.biquge.la/book/16431/6658470.html",
-     * "totalpage":0,"partsize":0,"order":0,"currency":0,"unreadble":false,"isVip":false}]
-     * updated : 2017-12-04T03:57:57.344Z
-     * host : biquge.la
+     * mixToc : {"_id":"5736014103c072d93f37d8fa","book":"5721df50bd7cc02728a981b1",
+     * "chaptersCount1":1701,"chaptersUpdated":"2017-12-08T00:11:16.992Z",
+     * "chapters":[{"title":"第1章 盲眼少年！","link":"http://book.my716.com/getBooks
+     * .aspx?method=content&bookId=1074192&chapterFile=U_1074192_201706301419513914_8023_1.txt",
+     * "unreadble":false},{"title":"第2章 登门问罪！","link":"http://book.my716.com/getBooks
+     * .aspx?method=content&bookId=1074192&chapterFile=U_1074192_201706280838039297_8503_2.txt",
+     * "unreadble":false}],"updated":"2017-12-08T00:11:16.992Z"}
+     * ok : true
      */
 
 
-    data class ChaptersBean(var title: String,
-                            var link: String,
-                            var totalpage: Int,
-                            var partsize: Int,
-                            var order: Int,
-                            var currency: Int,
-                            var isUnreadble: Boolean,
-                            var isIsVip: Boolean)
-    /**
-     * title : 第一章 他叫白小纯
-     * link : http://www.biquge.la/book/16431/6658470.html
-     * totalpage : 0
-     * partsize : 0
-     * order : 0
-     * currency : 0
-     * unreadble : false
-     * isVip : false
-     */
+    data class MixTocBean(var _id: String,
+                          var book: String,
+                          var chaptersCount1: Int,
+                          var chaptersUpdated: String,
+                          var updated: String,
+                          var chapters: List<ChaptersBean>) {
+        /**
+         * _id : 5736014103c072d93f37d8fa
+         * book : 5721df50bd7cc02728a981b1
+         * chaptersCount1 : 1701
+         * chaptersUpdated : 2017-12-08T00:11:16.992Z
+         * chapters : [{"title":"第1章 盲眼少年！","link":"http://book.my716.com/getBooks
+         * .aspx?method=content&bookId=1074192&chapterFile
+         * =U_1074192_201706301419513914_8023_1.txt","unreadble":false},{"title":"第2章 登门问罪！",
+         * "link":"http://book.my716.com/getBooks
+         * .aspx?method=content&bookId=1074192&chapterFile
+         * =U_1074192_201706280838039297_8503_2.txt","unreadble":false}]
+         * updated : 2017-12-08T00:11:16.992Z
+         */
 
+
+        data class ChaptersBean(var title: String,
+                                var link: String,
+                                var unreadable: Boolean)
+        /**
+         * title : 第1章 盲眼少年！
+         * link : http://book.my716.com/getBooks.aspx?method=content&bookId=1074192&chapterFile=U_1074192_201706301419513914_8023_1.txt
+         * unreadble : false
+         */
+
+
+    }
 }

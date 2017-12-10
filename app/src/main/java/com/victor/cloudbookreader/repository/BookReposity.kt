@@ -1,15 +1,13 @@
 package com.victor.cloudbookreader.repository
 
-import com.victor.cloudbookreader.ReaderApplication
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.victor.cloudbookreader.api.BookApi
 import com.victor.cloudbookreader.api.HeaderInterceptor
 import com.victor.cloudbookreader.api.Logger
 import com.victor.cloudbookreader.api.LoggingInterceptor
 import com.victor.cloudbookreader.bean.*
-import com.victor.cloudbookreader.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
@@ -36,6 +34,7 @@ class BookReposity {
                 .retryOnConnectionFailure(true) // 失败重发
                 .addInterceptor(HeaderInterceptor())
                 .addInterceptor(logging)
+                .addNetworkInterceptor(StethoInterceptor())
         bookApi = BookApi.getInstance(builder.build())
     }
 
@@ -109,26 +108,14 @@ class BookReposity {
                 })
     }
 
-    fun getBookChapter(bookId: String, callBack: RepositoryCallBack<BookDetailTemp>) {
+    fun getBookChapter(bookId: String, callBack: RepositoryCallBack<BookChapter>) {
         bookApi.getBookChapter(bookId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Subscriber<Response<BookDetailTemp>?> {
-                    override fun onNext(t: Response<BookDetailTemp>?) {
-                        if (t!!.isSuccessful) {
-                            callBack.callSuccess(t.body()!!)
-                        } else {
-                            callBack.callFailure(t.errorBody().toString())
-                        }
-                    }
-
-                    override fun onComplete() {
-                    }
-
-                    override fun onError(t: Throwable?) {
-                        callBack.callFailure(t!!.message!!)
-                    }
-
-                    override fun onSubscribe(s: Subscription?) {
+                .subscribe({ result: Response<BookChapter>? ->
+                    if (result!!.isSuccessful) {
+                        callBack.callSuccess(result.body()!!)
+                    } else {
+                        callBack.callFailure(result.errorBody().toString())
                     }
                 })
 
@@ -137,23 +124,11 @@ class BookReposity {
     fun getChapterContent(url: String, callBack: RepositoryCallBack<ChapterDetail>) {
         bookApi.getChapterDetail(url).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Subscriber<Response<ChapterDetail>?> {
-                    override fun onNext(t: Response<ChapterDetail>?) {
-                        if (t!!.isSuccessful) {
-                            callBack.callSuccess(t.body()!!)
-                        } else {
-                            callBack.callFailure(t.errorBody().toString())
-                        }
-                    }
-
-                    override fun onSubscribe(s: Subscription?) {
-                    }
-
-                    override fun onComplete() {
-                    }
-
-                    override fun onError(t: Throwable?) {
-                        callBack.callFailure(t!!.message!!)
+                .subscribe({ result: Response<ChapterDetail>? ->
+                    if (result!!.isSuccessful) {
+                        callBack.callSuccess(result.body()!!)
+                    } else {
+                        callBack.callFailure(result.errorBody().toString())
                     }
                 })
 

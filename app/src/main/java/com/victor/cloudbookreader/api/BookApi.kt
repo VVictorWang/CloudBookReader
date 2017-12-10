@@ -1,6 +1,5 @@
 package com.victor.cloudbookreader.api
 
-import com.google.gson.GsonBuilder
 import com.victor.cloudbookreader.bean.Constants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -48,5 +47,5 @@ class BookApi(client: OkHttpClient) {
 
     fun getBookChapter(bookId: String) = service.getBookChapter(bookId, "chapters")
 
-    fun getChapterDetail(url: String) = service.getChapterContent(Constants.CHAPTER + url)
+    fun getChapterDetail(url: String) = service.getChapterContent(url)
 }

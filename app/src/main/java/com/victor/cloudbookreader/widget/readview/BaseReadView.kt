@@ -17,14 +17,13 @@ import android.view.View
 import android.widget.Scroller
 
 import com.victor.cloudbookreader.bean.BookChapter
-import com.victor.cloudbookreader.bean.BookDetailTemp
 import com.victor.cloudbookreader.utils.Utils
 
 /**
  * @author yuyh.
  * @date 2016/10/18.
  */
-abstract class BaseReadView(context: Context, protected var bookId: String, chaptersList: List<BookDetailTemp.MixTocBean.ChaptersBean>,
+abstract class BaseReadView(context: Context, protected var bookId: String, chaptersList: List<BookChapter.MixTocBean.ChaptersBean>,
                             protected var listener: OnReadStateChangeListener) : View(context) {
 
     protected var mScreenWidth: Int = 0
