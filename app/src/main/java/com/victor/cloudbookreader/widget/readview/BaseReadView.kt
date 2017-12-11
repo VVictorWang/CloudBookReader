@@ -241,7 +241,7 @@ abstract class BaseReadView(context: Context, protected var bookId: String, chap
 
     open fun jumpToChapter(chapter: Int) {
         resetTouchPoint()
-        pagefactory!!.openBook(chapter, intArrayOf(0, 0))
+        pagefactory!!.openBook(chapter, intArrayOf(0, 1))
         pagefactory!!.onDraw(mCurrentPageCanvas)
         pagefactory!!.onDraw(mNextPageCanvas)
         postInvalidate()

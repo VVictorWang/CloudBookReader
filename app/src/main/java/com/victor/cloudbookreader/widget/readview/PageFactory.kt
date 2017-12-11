@@ -118,7 +118,7 @@ class PageFactory(private val mContext: Context,
         get() = mFontSize
         set(fontsize) {
             mFontSize = fontsize
-            mLineSpace = mFontSize / 5 * 2
+            mLineSpace = (mFontSize.toFloat() / 5 * 2).toInt()
             mPaint.textSize = mFontSize.toFloat()
             mPageLineCount = mVisibleHeight / (mFontSize + mLineSpace)
             curEndPos = curBeginPos
@@ -127,15 +127,15 @@ class PageFactory(private val mContext: Context,
 
     constructor(context: Context, bookId: String, chaptersList: List<BookChapter.MixTocBean.ChaptersBean>) : this(context, Utils.getScreenWidth(), Utils.getScreenHeight(),
             //SettingManager.getInstance().getReadFontSize(bookId),
-            12,
+            Utils.dpToPxInt(16f),
             bookId, chaptersList) {
     }
 
     init {
-        mLineSpace = mFontSize / 5 * 2
+        mLineSpace = (mFontSize.toFloat() / 5 * 2).toInt()
         mNumFontSize = Utils.dpToPxInt(16f)
         marginWidth = Utils.dpToPxInt(15f)
-        marginHeight = Utils.dpToPxInt(15f)
+        marginHeight = Utils.dpToPxInt(30f)
         mVisibleHeight = mHeight - marginHeight * 2 - mNumFontSize * 2 - mLineSpace * 2
         mVisibleWidth = mWidth - marginWidth * 2
         mPageLineCount = mVisibleHeight / (mFontSize + mLineSpace)
@@ -241,7 +241,7 @@ class PageFactory(private val mContext: Context,
             // 绘制提示内容
             if (batteryBitmap != null) {
                 canvas.drawBitmap(batteryBitmap!!, (marginWidth + 2).toFloat(),
-                        (mHeight - marginHeight - Utils.dpToPxInt(12f)).toFloat(), mTitlePaint)
+                        (mHeight - marginHeight).toFloat(), mTitlePaint)
             }
 
             val percent = currentChapter.toFloat() * 100 / chapterSize
@@ -317,7 +317,7 @@ class PageFactory(private val mContext: Context,
             val parabuffer = readParagraphForward(curEndPos)
             curEndPos += parabuffer.size
             try {
-                strParagraph = String(parabuffer, Charset.forName(charset))
+                strParagraph = String(parabuffer, Charset.defaultCharset())
             } catch (e: UnsupportedEncodingException) {
                 e.printStackTrace()
             }

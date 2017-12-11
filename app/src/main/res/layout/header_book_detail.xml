@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="330dp"
         android:background="@android:color/transparent">
 
         <ImageView
@@ -18,12 +18,10 @@
             android:scaleType="fitXY"
             />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll_book_detail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
+            android:layout_height="330dp"
             android:orientation="vertical"
             android:paddingBottom="40dp"
             android:paddingLeft="20dp"
@@ -42,7 +40,6 @@
                     android:scaleType="fitXY"
                     />
 
-                <!--评分-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -58,95 +55,253 @@
                         android:layout_marginTop="2dp"
                         android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="43dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="作者："
-                                android:textColor="@color/colorWhite"/>
-
-                            <View
-                                android:layout_width="28dp"
-                                android:layout_height="2dp"
-                                android:layout_marginTop="2dp"
-                                android:background="@color/colorTheme"/>
-
-                        </LinearLayout>
-
-                        <!--集合不能直接赋值，参数也要传对，注意！-->
                         <TextView
-                            android:id="@+id/tv_one_directors"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/remainning_rate"
+                            android:textColor="@color/colorTheme"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:id="@+id/remainning_rate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorTheme"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:id="@+id/total_follower"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="14sp"
+                            />
+
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
+                            android:text="@string/is_readding"
                             android:textColor="@color/colorWhite"/>
 
                     </LinearLayout>
 
-                    <!--导演-->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tv_one_rating_rate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
-                            android:textColor="@color/colorRateRed"/>
+                            android:text="@string/author"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/book_detail_text"
+                            />
 
-                        <!--数据不要设置错了：booksBean.rating.numRaters-->
                         <TextView
-                            android:id="@+id/tv_one_rating_number"
+                            android:id="@+id/book_author"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
                             android:ellipsize="end"
                             android:lines="1"
-                            android:textColor="@color/colorWhite"/>
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/book_detail_text"
+                            />
 
                     </LinearLayout>
 
-                    <!--主演-->
+                    <View
+                        android:layout_width="28dp"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@color/colorTheme"/>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="2dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="出版时间："
-                            android:textColor="@color/colorWhite"/>
+                            android:text="@string/brief_introduction"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/book_detail_text"
+                            />
 
                         <TextView
-                            android:id="@+id/tv_one_casts"
+                            android:id="@+id/brief_intro"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
-                            android:textColor="@color/colorWhite"/>
+                            android:maxLines="2"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/book_detail_text"
+                            />
 
                     </LinearLayout>
 
-                    <!--类型-->
-                    <TextView
-                        android:id="@+id/tv_one_genres"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginTop="2dp"
-                        android:ellipsize="end"
-                        android:textColor="@color/colorWhite"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/category"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/book_detail_text"
+                            />
 
+                        <TextView
+                            android:id="@+id/category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/book_detail_text"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/charater_count"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/book_detail_text"
+                            />
+
+                        <TextView
+                            android:id="@+id/charater_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/book_detail_text"
+                            />
+
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
-        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:id="@+id/playlist_collect"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/playlist_collect_view"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/list_detail_icn_fav"/>
+
+                    <TextView
+                        android:id="@+id/playlist_collect_state"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/collect"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/playlist_cmt"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:src="@drawable/list_detail_icn_cmt_dis"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/reading"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/playlist_share"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/playlist_share_view"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/list_detail_icn_share"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/share"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/playlist_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?android:selectableItemBackground"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:src="@drawable/list_detail_icn_dld"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/download"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
     </RelativeLayout>
 
 </RelativeLayout>

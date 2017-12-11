@@ -7,7 +7,7 @@ package com.victor.cloudbookreader.bean
  * @blog www.victorwan.cn                                            #
  */
 
-data class HotWord(var isOk: Boolean, var hotWords: List<String>, var newHotWords: List<NewHotWordsBean>) {
+data class HotWord(var ok: Boolean, var hotWords: List<String>, var newHotWords: List<NewHotWordsBean>) {
     /**
      * hotWords : ["枕上贪欢：兽性总裁请轻点","武道天尊","圣武星辰","王妃重生记","绝品小神医","快穿白月光：boss，捡起节操","近身兵王",
      * "BOSS太狂野：宝贝，小心撩","大仙木","神医嫡女","田园日常[重生]","太古神帝","重生之校园特种兵","穿成豪门太太","超级金钱帝国","王的彪悍宠妻",

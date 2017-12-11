@@ -9,8 +9,6 @@ import com.victor.cloudbookreader.bean.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
-import org.reactivestreams.Subscriber
-import org.reactivestreams.Subscription
 import retrofit2.Response
 import java.util.concurrent.TimeUnit
 
@@ -108,6 +106,18 @@ class BookReposity {
                 })
     }
 
+    fun getHotComment(bookId: String, callBack: RepositoryCallBack<HotComment>) {
+        bookApi.getHotCommet(bookId).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result: Response<HotComment>? ->
+                    if (result!!.isSuccessful) {
+                        callBack.callSuccess(result.body()!!)
+                    } else {
+                        callBack.callFailure(result.errorBody().toString())
+                    }
+                })
+    }
+
     fun getBookChapter(bookId: String, callBack: RepositoryCallBack<BookChapter>) {
         bookApi.getBookChapter(bookId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -125,6 +135,19 @@ class BookReposity {
         bookApi.getChapterDetail(url).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result: Response<ChapterDetail>? ->
+                    if (result!!.isSuccessful) {
+                        callBack.callSuccess(result.body()!!)
+                    } else {
+                        callBack.callFailure(result.errorBody().toString())
+                    }
+                })
+
+    }
+
+    fun getBookRecommend(bookId: String, limit:Int,callBack: RepositoryCallBack<RecommendList>) {
+        bookApi.getRecommendList(bookId,limit).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result: Response<RecommendList>? ->
                     if (result!!.isSuccessful) {
                         callBack.callSuccess(result.body()!!)
                     } else {

@@ -12,8 +12,8 @@
     <string name="recently_viewed">最近常看</string>
     <string name="more">更多</string>
     <string name="please_input_search_content">请输入搜索内容</string>
-    <string name="remainning_rate">读者留存率：</string>
-    <string name="is_readding">在追</string>
+    <string name="remainning_rate">读者留存：</string>
+    <string name="is_readding">人在追</string>
 
     <!--阅读页面相关-->
     <string name="book_read_reading">朗读</string>
@@ -40,5 +40,15 @@
     <string name="book_read_would_you_like_to_add_this_to_the_book_shelf">是否将本书加入书架？</string>
     <string name="book_read_join_the_book_shelf">加入书架</string>
     <string name="book_read_not">不了</string>
+    <string name="brief_introduction">简介：</string>
+    <string name="category">类型：</string>
+    <string name="charater_count">字数：</string>
+    <string name="share">分享</string>
+    <string name="download">下载</string>
+    <string name="reading">阅读</string>
+    <string name="collect">收藏</string>
+    <string name="plot_desc">剧情简介</string>
+    <string name="hot_comment">热门书评</string>
+    <string name="recommend_book_list">推荐书单</string>
 
 </resources>

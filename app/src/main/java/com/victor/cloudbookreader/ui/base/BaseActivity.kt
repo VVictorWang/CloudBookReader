@@ -2,6 +2,7 @@ package com.victor.cloudbookreader.ui.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 
 /**
  * @author victor
@@ -23,4 +24,23 @@ abstract class BaseActivity : AppCompatActivity() {
     protected abstract fun initView()
     protected abstract fun initEvent()
 
+    protected fun gone(vararg views: View) {
+        if (views.size > 0) {
+            for (view in views) {
+                view.visibility = View.GONE
+            }
+        }
+    }
+
+    protected fun visible(vararg views: View) {
+        if (views.size > 0) {
+            for (view in views) {
+                view.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    protected fun isVisible(view: View): Boolean {
+        return view.visibility == View.VISIBLE
+    }
 }

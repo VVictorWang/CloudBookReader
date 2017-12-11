@@ -20,11 +20,11 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.victor.cloudbookreader.R
 import com.victor.cloudbookreader.utils.PerfectClickListener
+import com.victor.cloudbookreader.utils.StatusBarUtil
+import com.victor.cloudbookreader.utils.StatusBarUtils
 import com.victor.cloudbookreader.utils.Utils
 import com.victor.cloudbookreader.widget.CustomChangeBounds
 import com.victor.cloudbookreader.widget.MyNestedScrollView
-import com.victor.cloudbookreader.utils.StatusBarUtil
-import com.victor.cloudbookreader.utils.StatusBarUtils
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.base_header_title_bar.*
 import java.lang.Exception
@@ -95,7 +95,7 @@ abstract class BaseHeaderActivity : AppCompatActivity() {
 
 //        // 初始化滑动渐变
 //        with(bindingTitleView) {
-//            initSlideShapeTheme(setHeaderImgUrl(), iv_base_titlebar_bg)
+        initSlideShapeTheme("", setHeaderImageView())
 //        }
 
         // 设置toolbar
@@ -126,15 +126,12 @@ abstract class BaseHeaderActivity : AppCompatActivity() {
      */
     protected abstract fun setHeaderLayout(): Int
 
-    /**
-     * b. 设置头部header高斯背景 imgUrl
-     */
-    protected abstract fun setHeaderImgUrl(): String
 
-//    /**
+
+    //    /**
 //     * c. 设置头部header布局 高斯背景ImageView控件
 //     */
-//    protected abstract fun setHeaderImageView(): ImageView
+    protected abstract fun setHeaderImageView(): ImageView
 
     /**
      * 设置头部header布局 左侧的图片(需要设置曲线路径切换动画时重写)
@@ -310,7 +307,7 @@ abstract class BaseHeaderActivity : AppCompatActivity() {
                             override fun onResourceReady(resource: GlideDrawable, model: String, target: Target<GlideDrawable>, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
 
                                 tb_base_title.setBackgroundColor(Color.TRANSPARENT)
-                                iv_base_titlebar_bg.imageAlpha = 100
+                                iv_base_titlebar_bg.imageAlpha = 0
                                 iv_base_titlebar_bg.visibility = View.VISIBLE
 
                                 return false
@@ -346,23 +343,12 @@ abstract class BaseHeaderActivity : AppCompatActivity() {
         with(bindingTitleView) {
             val drawable = iv_base_titlebar_bg.drawable ?: return
 
-            if (scrollY <= slidingDistance && (alpha * 255).toInt() < 255 - 100) {
-                drawable.mutate().alpha = ((alpha * 255).toInt()) + 100
+            if (scrollY <= slidingDistance) {
+                drawable.mutate().alpha = ((alpha * 255).toInt())
             } else {
                 drawable.mutate().alpha = 255
             }
             iv_base_titlebar_bg.setImageDrawable(drawable)
-        }
-        with(bindingTitleView) {
-
-            // 上移背景图片，使空白状态栏消失(这样下方就空了状态栏的高度)
-            if (iv_base_titlebar_bg != null && scrollY <= slidingDistance + (Utils.getDimens(R.dimen.base_header_activity_slide_more).toInt())) {
-                val layoutParams = iv_base_titlebar_bg.layoutParams as ViewGroup.MarginLayoutParams
-                layoutParams.setMargins(0, -scrollY, 0, 0)
-
-                iv_base_titlebar_bg.layoutParams = layoutParams
-                // 获得高斯图背景的高度
-            }
         }
 
 

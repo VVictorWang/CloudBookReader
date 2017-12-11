@@ -36,4 +36,11 @@ interface BookApiService {
     @GET("http://chapter2.zhuishushenqi.com/chapter/{url}")
     fun getChapterContent(@Path("url") url: String): Flowable<Response<ChapterDetail>>
 
+    @GET("/post/review/best-by-book")
+    fun getHotComment(@Query("book") bookId: String): Flowable<Response<HotComment>>
+
+
+    @GET("/book-list/{bookId}/recommend")
+    fun getRecommendBookList(@Path("bookId") bookId: String, @Query("limit") limit: String): Flowable<Response<RecommendList>>
+
 }

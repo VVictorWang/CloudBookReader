@@ -48,4 +48,8 @@ class BookApi(client: OkHttpClient) {
     fun getBookChapter(bookId: String) = service.getBookChapter(bookId, "chapters")
 
     fun getChapterDetail(url: String) = service.getChapterContent(url)
+
+    fun getHotCommet(bookId: String) = service.getHotComment(bookId)
+
+    fun getRecommendList(bookId: String, limit: Int) = service.getRecommendBookList(bookId, limit.toString())
 }

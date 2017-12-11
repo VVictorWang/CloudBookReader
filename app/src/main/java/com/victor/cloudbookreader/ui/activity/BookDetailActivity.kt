@@ -1,34 +1,51 @@
 package com.victor.cloudbookreader.ui.activity
 
 import android.content.Intent
+import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.victor.cloudbookreader.R
+import com.victor.cloudbookreader.R.id.*
 import com.victor.cloudbookreader.bean.BookDetail
 import com.victor.cloudbookreader.bean.Constants
+import com.victor.cloudbookreader.bean.HotComment
+import com.victor.cloudbookreader.bean.RecommendList
 import com.victor.cloudbookreader.repository.BookReposity
 import com.victor.cloudbookreader.repository.RepositoryCallBack
+import com.victor.cloudbookreader.ui.adapter.CommetAdapter
+import com.victor.cloudbookreader.ui.adapter.RecommendListAdapter
 import com.victor.cloudbookreader.ui.base.BaseHeaderActivity
+import com.youth.banner.Banner
+import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_book_detail.*
-import kotlinx.android.synthetic.main.base_header_title_bar.*
 import kotlinx.android.synthetic.main.header_book_detail.*
 
 class BookDetailActivity : BaseHeaderActivity() {
-    override fun setHeaderLayout(): Int {
-        return R.layout.header_book_detail
-    }
 
-    override fun setHeaderImgUrl(): String {
-        return "as"
-    }
+    private var commentAdapter: CommetAdapter? = null
+    private var recommendAdapter:RecommendListAdapter?=null
+
+    override fun setHeaderImageView() = img_item_bg
+
+    override fun setHeaderLayout() = R.layout.header_book_detail
+
+    override fun setHeaderPicView() = book_cover
 
 
     fun initView() {
-//        setToolBar()
-//        top_layout.bringToFront()
+        setMotion(setHeaderImageView(), true)
+        commentAdapter = CommetAdapter(this)
+        comment.layoutManager = LinearLayoutManager(this)
+        comment.adapter = commentAdapter
+        recommendAdapter = RecommendListAdapter(null)
+        recommend_books.layoutManager = LinearLayoutManager(this)
+        recommend_books.adapter = recommendAdapter
         getData()
-        test.setOnClickListener {
+        getCommentData()
+        getRecommendList()
+        playlist_collect_view.setOnClickListener {
             val intent = Intent(this, ReadActivity::class.java)
             intent.putExtra("bookId", bookId!!)
             startActivity(intent)
@@ -54,29 +71,53 @@ class BookDetailActivity : BaseHeaderActivity() {
             }
 
             override fun callSuccess(data: BookDetail) {
-                with(bindingHeaderView) {
-                    initSlideShapeTheme(Constants.IMG_BASE_URL + data.cover, iv_base_titlebar_bg)
-                }
+                Glide.with(this@BookDetailActivity).load(Constants.IMG_BASE_URL + data.cover)
+                        .error(R.drawable.stackblur_default)
+                        .bitmapTransform(BlurTransformation(this@BookDetailActivity, 23, 4))
+                        .into(setHeaderImageView())
+                initSlideShapeTheme(Constants.IMG_BASE_URL + data.cover, setHeaderImageView())
                 with(bindingHeaderView) {
                     Glide.with(this@BookDetailActivity).load(Constants.IMG_BASE_URL + data.cover)
                             .into(book_cover)
                 }
                 setTitle(data.title)
                 setSubTitle(data.author)
-//                tb_base_title.title = data.title
-//                tb_base_title.subtitle = data.author
-
-//                remainning_rate.text = data.retentionRatio + "%"
-//                total_people.text = data.latelyFollower.toString()
-                test.text = data.longIntro
-                test1.text = data.longIntro
-                test2.text = data.longIntro
-                test3.text = data.longIntro
-                test4.text = data.longIntro
+                remainning_rate.text = data.retentionRatio + "%"
+                total_follower.text = data.latelyFollower.toString()
+                book_author.text = data.author
+                brief_intro.text = data.longIntro
+                category.text = data.cat
+                charater_count.text = data.wordCount.toString() + "字"
+                tag.setTags(data.tags)
+                long_info.text = data.longIntro
                 showContentView()
                 Log.d("@vic", Constants.IMG_BASE_URL + data.cover)
             }
         })
+    }
+
+    fun getCommentData() {
+        BookReposity.getInstanc().getHotComment(bookId!!, object : RepositoryCallBack<HotComment> {
+            override fun callSuccess(data: HotComment) {
+                commentAdapter!!.setData(data)
+            }
+
+            override fun callFailure(message: String) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
+    }
+
+    fun getRecommendList() {
+        BookReposity.getInstanc().getBookRecommend(bookId!!, 5,object: RepositoryCallBack<RecommendList> {
+            override fun callFailure(message: String) {
+
+            }
+
+            override fun callSuccess(data: RecommendList) {
+                recommendAdapter!!.setData(data)
+            }
+        } )
     }
 
 //    fun setImageHeaderBg(imgUrl: String) {
