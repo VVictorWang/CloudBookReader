@@ -1,6 +1,7 @@
 # Built application files
 /*/build/
-library/xrecyclerview/build
+library/xrecyclerview/build/
+build/
 
 #built application files 
 *.apk
