@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager
 import com.victor.cloudbookreader.ui.activity.SearchActivity
 import com.victor.cloudbookreader.ui.adapter.MyFragmnetPageAdapter
 import com.victor.cloudbookreader.ui.base.BaseActivity
+import com.victor.cloudbookreader.ui.fragment.BookShelfFragment
 import com.victor.cloudbookreader.ui.fragment.MainFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -48,7 +49,7 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
     override fun initView() {
         val fragments = ArrayList<Fragment>()
         fragments.add(MainFragment())
-        fragments.add(MainFragment())
+        fragments.add(BookShelfFragment.newInstance("5721df50bd7cc02728a981b1"))
         fragments.add(MainFragment())
         vp_content.adapter = MyFragmnetPageAdapter(supportFragmentManager, fragments)
         vp_content.currentItem = 0

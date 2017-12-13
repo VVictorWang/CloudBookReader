@@ -1,5 +1,8 @@
 package com.victor.cloudbookreader.ui.contract
 
+import com.victor.cloudbookreader.bean.BookDetail
+import com.victor.cloudbookreader.bean.HotComment
+import com.victor.cloudbookreader.bean.RecommendList
 import com.victor.cloudbookreader.ui.base.BasePresenter
 import com.victor.cloudbookreader.ui.base.BaseView
 
@@ -11,10 +14,13 @@ import com.victor.cloudbookreader.ui.base.BaseView
  */
 interface BookDetaiContract {
     interface View : BaseView<Presenter> {
-
+        fun getBookId(): String
+        fun showBookDetail(result: BookDetail)
+        fun showCommentData(result: HotComment)
+        fun showRecommendList(result: RecommendList)
     }
 
     interface Presenter : BasePresenter {
-
+        fun addBook(bookId: String)
     }
 }

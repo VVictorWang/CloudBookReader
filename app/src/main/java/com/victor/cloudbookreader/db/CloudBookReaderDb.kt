@@ -5,6 +5,7 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import com.victor.cloudbookreader.bean.BookDetail
+import com.victor.cloudbookreader.bean.UserInfo
 
 /**
  * @author victor
@@ -13,10 +14,12 @@ import com.victor.cloudbookreader.bean.BookDetail
  * @blog www.victorwan.cn                                            #
  */
 
-@Database(entities = arrayOf(BookDetail::class), version = 1)
+@Database(entities = arrayOf(BookDetail::class, UserInfo::class), version = 1)
 abstract class CloudBookReaderDb : RoomDatabase() {
 
     abstract fun bookDao(): BookDao
+
+    abstract fun userDao(): UserDao
 
     companion object {
         @Volatile private var INSTANCE: CloudBookReaderDb? = null
@@ -27,6 +30,6 @@ abstract class CloudBookReaderDb : RoomDatabase() {
 
         private fun buildDatabase(context: Context) =
                 Room.databaseBuilder(context.applicationContext,
-                        CloudBookReaderDb::class.java, "cloudreader.db").build()
+                        CloudBookReaderDb::class.java, "coudreader.db").build()
     }
 }

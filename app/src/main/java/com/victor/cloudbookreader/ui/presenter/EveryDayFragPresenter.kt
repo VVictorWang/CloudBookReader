@@ -4,7 +4,9 @@ import com.victor.cloudbookreader.bean.Constants
 import com.victor.cloudbookreader.bean.Recommend
 import com.victor.cloudbookreader.repository.BookReposity
 import com.victor.cloudbookreader.repository.RepositoryCallBack
+import com.victor.cloudbookreader.repository.UserRepository
 import com.victor.cloudbookreader.ui.contract.EveryDayFragContract
+import com.victor.cloudbookreader.utils.PrefUtils
 
 /**
  * @author victor
@@ -35,6 +37,8 @@ class EveryDayFragPresenter(val mView: EveryDayFragContract.View) : EveryDayFrag
                 mView.setRecommendData(data)
             }
         })
+//        PrefUtils.putValue(Constants.USER_ID, Constants.DEFAULT_USER)
+//        UserRepository.getInstanc().addUser(PrefUtils.getValue(Constants.USER_ID, Constants.DEFAULT_USER)!!)
     }
 
 }

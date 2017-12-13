@@ -15,6 +15,9 @@ object Constants {
 
     val API_BASE_URL = "http://api.zhuishushenqi.com"
 
+    val USER_ID = "user_id"
+    val DEFAULT_USER = "default"
+
     val IMG_BASE_URL = "http://statics.zhuishushenqi.com"
 
     var PATH_DATA = FileUtils.createRootPath(ReaderApplication.readerApplication) + "/cache"

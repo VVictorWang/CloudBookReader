@@ -57,6 +57,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     kapt 'com.github.bumptech.glide:compiler:4.4.0'
 
+    compile 'com.azoft.carousellayoutmanager:carousel:1.2.1'
+
     compile "com.squareup.retrofit2:converter-gson:2.3.0"
     compile "com.squareup.retrofit2:retrofit:2.3.0"
     compile "com.squareup.retrofit2:adapter-rxjava:2.3.0"
@@ -67,7 +69,6 @@ dependencies {
 
     // Android Testing Support Library's runner and rules
 //    androidTestImplementation "android.arch.core:core-testing:$arch_version"
-
 
     // Resolve conflicts between main and test APK:
     androidTestImplementation "com.android.support:support-annotations:$support_version"

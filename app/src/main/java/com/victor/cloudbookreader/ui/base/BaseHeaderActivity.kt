@@ -5,7 +5,6 @@ import android.graphics.drawable.AnimationDrawable
 import android.os.Build
 import android.support.annotation.LayoutRes
 import android.support.v4.content.ContextCompat
-import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.transition.ArcMotion
@@ -45,6 +44,7 @@ abstract class BaseHeaderActivity : AppCompatActivity() {
     protected var bindingHeaderView: View? = null
     // 内容布局view
     protected var bindingContentView: View? = null
+    protected var footerView: View? = null
     private var llProgressBar: LinearLayout? = null
     private var refresh: View? = null
     // 滑动多少距离后标题不透明
@@ -68,6 +68,7 @@ abstract class BaseHeaderActivity : AppCompatActivity() {
         // 标题
         bindingTitleView = layoutInflater.inflate(R.layout.base_header_title_bar, null, false)
 
+        footerView = footer_view
         // title (如自定义很强可以拿出去)
         val titleParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         bindingTitleView!!.layoutParams = titleParams
@@ -127,7 +128,6 @@ abstract class BaseHeaderActivity : AppCompatActivity() {
      * a. 布局高斯透明图 header布局
      */
     protected abstract fun setHeaderLayout(): Int
-
 
 
     //    /**
@@ -325,7 +325,7 @@ abstract class BaseHeaderActivity : AppCompatActivity() {
     private fun initScrollViewListener() {
         // 为了兼容23以下
 //        mns_base.setScrollChangeListener { scrollX, scrollY, oldScrollX, oldScrollY -> scrollChangeHeader(scrollY) }
-        mns_base.setScrollChangeListener(object: MyNestedScrollView.ScrollInterface {
+        mns_base.setScrollChangeListener(object : MyNestedScrollView.ScrollInterface {
             override fun onScrollChange(scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
                 scrollChangeHeader(scrollY)
             }
