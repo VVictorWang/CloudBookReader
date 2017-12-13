@@ -1,5 +1,12 @@
 package com.victor.cloudbookreader.bean
 
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.TypeConverters
+import com.victor.cloudbookreader.db.RattingBeanConverter
+import com.victor.cloudbookreader.db.StringListConverter
+
 /**
  * @author victor
  * @date 12/7/17
@@ -7,17 +14,42 @@ package com.victor.cloudbookreader.bean
  * @blog www.victorwan.cn                                            #
  */
 
-data class BookDetail(var _id: String, var title: String, var author: String, var longIntro: String,
-                      var cover: String, var majorCate: String, var minorCate: String, var creater: String,
-                      var rating: RatingBean, var isHasCopyright: Boolean, var buytype: Int, var sizetype: Int,
-                      var superscript: String, var currency: Int, var contentType: String, var is_le: Boolean,
-                      var isAllowMonthly: Boolean, var isAllowVoucher: Boolean, var isAllowBeanVoucher: Boolean,
-                      var isHasCp: Boolean, var postCount: Int, var latelyFollower: Int, var followerCount: Int,
-                      var wordCount: Int, var serializeWordCount: Int, var retentionRatio: String,
+@Entity(tableName = "books")
+@TypeConverters(*arrayOf(StringListConverter::class, RattingBeanConverter::class))
+data class BookDetail(@PrimaryKey
+                      @ColumnInfo(name = "id")
+                      var _id: String,
+                      @ColumnInfo(name = "title") var title: String,
+                      @ColumnInfo(name = "author") var author: String,
+                      @ColumnInfo(name = "longIntro") var longIntro: String,
+                      @ColumnInfo(name = "cover") var cover: String,
+                      @ColumnInfo(name = "tags") var tags: List<String>,
+                      @ColumnInfo(name = "rentention") var retentionRatio: String,
+                      @ColumnInfo(name = "majorCate") var majorCate: String?,
+                      @ColumnInfo(name = "minorCate") var minorCate: String?,
+                      @ColumnInfo(name = "creater") var creater: String,
+                      @ColumnInfo(name = "rating") var rating: RatingBean = RatingBean(),
+                      @ColumnInfo(name = "isHasCopyRight") var isHasCopyright: Boolean,
+                      @ColumnInfo(name = "buytype") var buytype: Int,
+                      @ColumnInfo(name = "sizetype") var sizetype: Int,
+                      @ColumnInfo(name = "wordCount") var wordCount: Int,
+                      @ColumnInfo(name = "lately") var latelyFollower: Int,
+                      @ColumnInfo(name = "supercript") var superscript: String?,
+                      @ColumnInfo(name = "currency") var currency: Int,
+                      @ColumnInfo(name = "contenttype") var contentType: String,
+                      @ColumnInfo(name = "is_le") var is_le: Boolean?,
+                      @ColumnInfo(name = "cat") var cat: String,
+                      var isHasCp: Boolean, var postCount: Int, var followerCount: Int,
+                      var serializeWordCount: Int,
+
                       var updated: String, var isIsSerial: Boolean, var chaptersCount: Int,
-                      var lastChapter: String, var isAdvertRead: Boolean, var cat: String,
-                      var isDonate: Boolean, var copyright: String, var is_gg: Boolean,
-                      var gender: List<String>, var tags: List<String>) {
+                      var lastChapter: String, var isAdvertRead: Boolean,
+                      var isDonate: Boolean, var copyright: String?, var is_gg: Boolean?,
+                      var gender: List<String>,
+                      var isAllowMonthly: Boolean, var isAllowVoucher: Boolean, var isAllowBeanVoucher: Boolean
+) {
+
+
     /**
      * _id : 5816b415b06d1d32157790b1
      * title : 圣墟
@@ -61,7 +93,11 @@ data class BookDetail(var _id: String, var title: String, var author: String, va
      */
 
 
-    data class RatingBean(var count: Int, var score: Double, var isIsEffect: Boolean)
+    data class RatingBean(var count: Int,
+                          var score: Double,
+                          var isIsEffect: Boolean) {
+        constructor() : this(0, 0.0, false)
+    }
     /**
      * count : 22375
      * score : 8.755

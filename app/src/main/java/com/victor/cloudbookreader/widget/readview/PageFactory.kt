@@ -7,8 +7,7 @@ import android.widget.ProgressBar
 import com.victor.cloudbookreader.R
 import com.victor.cloudbookreader.ReaderApplication
 import com.victor.cloudbookreader.bean.BookChapter
-import com.victor.cloudbookreader.utils.FileUtils
-import com.victor.cloudbookreader.utils.Utils
+import com.victor.cloudbookreader.utils.*
 import java.io.File
 import java.io.IOException
 import java.io.RandomAccessFile
@@ -125,17 +124,18 @@ class PageFactory(private val mContext: Context,
             nextPage()
         }
 
-    constructor(context: Context, bookId: String, chaptersList: List<BookChapter.MixTocBean.ChaptersBean>) : this(context, Utils.getScreenWidth(), Utils.getScreenHeight(),
-            //SettingManager.getInstance().getReadFontSize(bookId),
-            Utils.dpToPxInt(16f),
-            bookId, chaptersList) {
+    constructor(context: Context, bookId: String, chaptersList: List<BookChapter.MixTocBean.ChaptersBean>) :
+            this(context, context.screenWidth, context.screenHeight,
+                    //SettingManager.getInstance().getReadFontSize(bookId),
+                    context.dp2pxInt(16f),
+                    bookId, chaptersList) {
     }
 
     init {
         mLineSpace = (mFontSize.toFloat() / 5 * 2).toInt()
-        mNumFontSize = Utils.dpToPxInt(16f)
-        marginWidth = Utils.dpToPxInt(15f)
-        marginHeight = Utils.dpToPxInt(30f)
+        mNumFontSize = mContext.dp2pxInt(16f)
+        marginWidth = mContext.dp2pxInt(15f)
+        marginHeight = mContext.dp2pxInt(30f)
         mVisibleHeight = mHeight - marginHeight * 2 - mNumFontSize * 2 - mLineSpace * 2
         mVisibleWidth = mWidth - marginWidth * 2
         mPageLineCount = mVisibleHeight / (mFontSize + mLineSpace)

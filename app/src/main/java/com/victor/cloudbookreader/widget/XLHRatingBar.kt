@@ -8,7 +8,6 @@ package com.victor.cloudbookreader.widget
  */
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
 import android.util.Log
@@ -17,9 +16,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.LinearLayout
-
 import com.victor.cloudbookreader.R
-import com.victor.cloudbookreader.utils.Utils
+import com.victor.cloudbookreader.utils.dp2px
 
 
 class XLHRatingBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
@@ -39,8 +37,8 @@ class XLHRatingBar @JvmOverloads constructor(context: Context, attrs: AttributeS
         countSelected = typedArray.getInt(R.styleable.XlHRatingBar_countSelected, 0)
         canEdit = typedArray.getBoolean(R.styleable.XlHRatingBar_canEdit, false)
         differentSize = typedArray.getBoolean(R.styleable.XlHRatingBar_differentSize, false)
-        widthAndHeight = typedArray.getDimension(R.styleable.XlHRatingBar_widthAndHeight, Utils.dpToPxInt(0f).toFloat())
-        dividerWidth = typedArray.getDimension(R.styleable.XlHRatingBar_dividerWidth, Utils.dpToPxInt(0f).toFloat())
+        widthAndHeight = typedArray.getDimension(R.styleable.XlHRatingBar_widthAndHeight, context.dp2px(0f))
+        dividerWidth = typedArray.getDimension(R.styleable.XlHRatingBar_dividerWidth, context.dp2px(0f))
         stateResId = typedArray.getResourceId(R.styleable.XlHRatingBar_stateResId, -1)
         initView()
     }

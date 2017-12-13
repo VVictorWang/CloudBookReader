@@ -5,6 +5,7 @@ import android.graphics.drawable.AnimationDrawable
 import android.os.Build
 import android.support.annotation.LayoutRes
 import android.support.v4.content.ContextCompat
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.transition.ArcMotion
@@ -26,6 +27,7 @@ import com.victor.cloudbookreader.utils.Utils
 import com.victor.cloudbookreader.widget.CustomChangeBounds
 import com.victor.cloudbookreader.widget.MyNestedScrollView
 import jp.wasabeef.glide.transformations.BlurTransformation
+import kotlinx.android.synthetic.main.activity_header_base.*
 import kotlinx.android.synthetic.main.base_header_title_bar.*
 import java.lang.Exception
 
@@ -322,7 +324,12 @@ abstract class BaseHeaderActivity : AppCompatActivity() {
 
     private fun initScrollViewListener() {
         // 为了兼容23以下
-        (findViewById<View>(R.id.mns_base) as MyNestedScrollView).setOnScrollChangeListener { scrollX, scrollY, oldScrollX, oldScrollY -> scrollChangeHeader(scrollY) }
+//        mns_base.setScrollChangeListener { scrollX, scrollY, oldScrollX, oldScrollY -> scrollChangeHeader(scrollY) }
+        mns_base.setScrollChangeListener(object: MyNestedScrollView.ScrollInterface {
+            override fun onScrollChange(scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
+                scrollChangeHeader(scrollY)
+            }
+        })
     }
 
     private fun initNewSlidingParams() {

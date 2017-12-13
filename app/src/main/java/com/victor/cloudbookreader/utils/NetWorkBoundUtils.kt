@@ -1,11 +1,11 @@
 package com.victor.cloudbookreader.utils
 
 import android.support.annotation.MainThread
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
-import java.io.IOException
+import rx.Observable
+import rx.Observer
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 /**
  * @author victor
@@ -18,24 +18,23 @@ abstract class NetWorkBoundUtils<ResultType, RequestType>(callBack: CallBack<Res
     //    private Observable<ResultType> result = null;
 
     interface CallBack<ResultType> {
-        fun callSuccess(result: Flowable<ResultType>)
+        fun callSuccess(result: ResultType)
 
         fun callFailure(errorMessage: String)
     }
 
     init {
 
-        Flowable.just(1).subscribeOn(Schedulers.io())
+        Observable.just(1).subscribeOn(Schedulers.io())
                 .subscribe {
-                    loadFromDb().subscribeOn(Schedulers.io())
-                            .observeOn(Schedulers.io())
-                            .subscribe { resultType ->
-                                if (shouldFetch(resultType)) {
-                                    fetchFromNetwork(callBack)
-                                } else {
-                                    callBack.callSuccess(loadFromDb())
-                                }
-                            }
+                    if (shouldFetch(loadFromDb())) {
+                        fetchFromNetwork(callBack)
+                    } else {
+                        Observable.just(loadFromDb()).subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe({ t -> callBack.callSuccess(t!!) })
+                    }
+
                 }
     }
 
@@ -46,21 +45,33 @@ abstract class NetWorkBoundUtils<ResultType, RequestType>(callBack: CallBack<Res
                 .doOnNext { requestTypeApiResponse ->
                     if (requestTypeApiResponse.isSuccessful) {
                         saveCallResult(processResponse(requestTypeApiResponse)!!)
-                        callBack.callSuccess(loadFromDb())
+                        Observable.just(loadFromDb()).subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe({ t -> callBack.callSuccess(t!!) })
                     }
                 }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { requestTypeApiResponse ->
-                    if (!requestTypeApiResponse.isSuccessful) {
+                .subscribe(object : Observer<Response<RequestType>?> {
+                    override fun onError(e: Throwable?) {
                         onFetchFailed()
-                        try {
-                            callBack.callFailure(requestTypeApiResponse.errorBody()!!.string())
-                        } catch (e: IOException) {
-                            e.printStackTrace()
-                        }
-
                     }
-                }
+
+                    override fun onNext(requestTypeApiResponse: Response<RequestType>?) {
+                        if (!requestTypeApiResponse!!.isSuccessful) {
+                            onFetchFailed()
+                            try {
+                                callBack.callFailure(requestTypeApiResponse.errorBody()!!.string())
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+
+                        }
+                    }
+
+                    override fun onCompleted() {
+                    }
+                })
+
     }
 
 
@@ -76,8 +87,8 @@ abstract class NetWorkBoundUtils<ResultType, RequestType>(callBack: CallBack<Res
     @MainThread
     protected abstract fun shouldFetch(data: ResultType?): Boolean
 
-    protected abstract fun loadFromDb(): Flowable<ResultType>
+    protected abstract fun loadFromDb(): ResultType?
 
-    protected abstract fun createCall(): Flowable<Response<RequestType>>
+    protected abstract fun createCall(): Observable<Response<RequestType>>
 }
 

@@ -22,51 +22,6 @@ object Utils {
         return resoure.getDimension(resId)
     }
 
-    /**
-     * 获取屏幕宽度
-     *
-     * @return
-     */
-    fun getScreenWidth(): Int {
-        return resoure.getDisplayMetrics().widthPixels
-    }
-
-    /**
-     * 获取屏幕高度
-     *
-     * @return
-     */
-    fun getScreenHeight(): Int {
-        return resoure.getDisplayMetrics().heightPixels
-    }
-
-    /**
-     * 将dp转换成px
-     *
-     * @param dp
-     * @return
-     */
-    fun dpToPx(dp: Float): Float {
-        return dp * resoure.getDisplayMetrics().density
-    }
-
-    fun dpToPxInt(dp: Float): Int {
-        return (dpToPx(dp) + 0.5f).toInt()
-    }
-
-    /**
-     * 将px转换成dp
-     *
-     * @param px
-     * @return
-     */
-    fun pxToDp(px: Float): Float {
-        return px / resoure.getDisplayMetrics().density
-    }
-
-    fun pxToDpInt(px: Float): Int {
-        return (pxToDp(px) + 0.5f).toInt()
-    }
 
     fun formatContent(str: String): String {
         var str = str

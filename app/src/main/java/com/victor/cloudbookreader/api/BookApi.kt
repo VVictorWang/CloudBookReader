@@ -3,7 +3,7 @@ package com.victor.cloudbookreader.api
 import com.victor.cloudbookreader.bean.Constants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
@@ -29,7 +29,7 @@ class BookApi(client: OkHttpClient) {
     init {
         val retrofit = Retrofit.Builder().baseUrl(Constants.API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(client)
                 .build()
         service = retrofit.create(BookApiService::class.java)

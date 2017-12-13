@@ -339,7 +339,6 @@ public class TagGroup extends ViewGroup {
                     rowMaxHeight = Math.max(rowMaxHeight, height);
                 }
                 child.layout(childLeft, childTop, childLeft + width, childTop + height);
-
                 childLeft += width + horizontalSpacing;
             }
         }

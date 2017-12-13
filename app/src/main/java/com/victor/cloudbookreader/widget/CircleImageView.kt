@@ -236,5 +236,4 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
         private val DEFAULT_BORDER_WIDTH = 0 //默认无边框
         private val DEFAULT_BORDER_COLOR = Color.BLACK //边框颜色
     }
-
 }

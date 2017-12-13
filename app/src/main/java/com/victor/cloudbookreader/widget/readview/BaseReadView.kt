@@ -15,9 +15,11 @@ import android.graphics.PointF
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Scroller
+import com.victor.cloudbookreader.ReaderApplication
 
 import com.victor.cloudbookreader.bean.BookChapter
-import com.victor.cloudbookreader.utils.Utils
+import com.victor.cloudbookreader.utils.screenHeight
+import com.victor.cloudbookreader.utils.screenWidth
 
 /**
  * @author yuyh.
@@ -57,8 +59,8 @@ abstract class BaseReadView(context: Context, protected var bookId: String, chap
 
     init {
 
-        mScreenWidth = Utils.getScreenWidth()
-        mScreenHeight = Utils.getScreenHeight()
+        mScreenWidth = ReaderApplication.readerApplication.screenWidth
+        mScreenHeight = ReaderApplication.readerApplication.screenHeight
 
         mCurPageBitmap = Bitmap.createBitmap(mScreenWidth, mScreenHeight, Bitmap.Config.ARGB_8888)
         mNextPageBitmap = Bitmap.createBitmap(mScreenWidth, mScreenHeight, Bitmap.Config.ARGB_8888)

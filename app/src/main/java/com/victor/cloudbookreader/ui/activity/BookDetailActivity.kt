@@ -1,13 +1,10 @@
 package com.victor.cloudbookreader.ui.activity
 
 import android.content.Intent
-import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.victor.cloudbookreader.R
-import com.victor.cloudbookreader.R.id.*
 import com.victor.cloudbookreader.bean.BookDetail
 import com.victor.cloudbookreader.bean.Constants
 import com.victor.cloudbookreader.bean.HotComment
@@ -17,7 +14,8 @@ import com.victor.cloudbookreader.repository.RepositoryCallBack
 import com.victor.cloudbookreader.ui.adapter.CommetAdapter
 import com.victor.cloudbookreader.ui.adapter.RecommendListAdapter
 import com.victor.cloudbookreader.ui.base.BaseHeaderActivity
-import com.youth.banner.Banner
+import com.victor.cloudbookreader.utils.NetWorkBoundUtils
+import com.victor.cloudbookreader.widget.MyLinearLayoutManger
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_book_detail.*
 import kotlinx.android.synthetic.main.header_book_detail.*
@@ -25,7 +23,7 @@ import kotlinx.android.synthetic.main.header_book_detail.*
 class BookDetailActivity : BaseHeaderActivity() {
 
     private var commentAdapter: CommetAdapter? = null
-    private var recommendAdapter:RecommendListAdapter?=null
+    private var recommendAdapter: RecommendListAdapter? = null
 
     override fun setHeaderImageView() = img_item_bg
 
@@ -37,10 +35,10 @@ class BookDetailActivity : BaseHeaderActivity() {
     fun initView() {
         setMotion(setHeaderImageView(), true)
         commentAdapter = CommetAdapter(this)
-        comment.layoutManager = LinearLayoutManager(this)
+        comment.layoutManager = MyLinearLayoutManger(this)
         comment.adapter = commentAdapter
         recommendAdapter = RecommendListAdapter(null)
-        recommend_books.layoutManager = LinearLayoutManager(this)
+        recommend_books.layoutManager = MyLinearLayoutManger(this)
         recommend_books.adapter = recommendAdapter
         getData()
         getCommentData()
@@ -65,33 +63,33 @@ class BookDetailActivity : BaseHeaderActivity() {
     }
 
     fun getData() {
-        BookReposity.getInstanc().getBookDetail(bookId!!, object : RepositoryCallBack<BookDetail> {
-            override fun callFailure(message: String) {
-                Log.d("@vic", "error " + message)
+        BookReposity.getInstanc().getBookDetail(bookId!!, object : NetWorkBoundUtils.CallBack<BookDetail> {
+            override fun callFailure(errorMessage: String) {
+
             }
 
-            override fun callSuccess(data: BookDetail) {
-                Glide.with(this@BookDetailActivity).load(Constants.IMG_BASE_URL + data.cover)
+            override fun callSuccess(result: BookDetail) {
+                Glide.with(this@BookDetailActivity).load(Constants.IMG_BASE_URL + result.cover)
                         .error(R.drawable.stackblur_default)
                         .bitmapTransform(BlurTransformation(this@BookDetailActivity, 23, 4))
                         .into(setHeaderImageView())
-                initSlideShapeTheme(Constants.IMG_BASE_URL + data.cover, setHeaderImageView())
+                initSlideShapeTheme(Constants.IMG_BASE_URL + result.cover, setHeaderImageView())
                 with(bindingHeaderView) {
-                    Glide.with(this@BookDetailActivity).load(Constants.IMG_BASE_URL + data.cover)
+                    Glide.with(this@BookDetailActivity).load(Constants.IMG_BASE_URL + result.cover)
                             .into(book_cover)
                 }
-                setTitle(data.title)
-                setSubTitle(data.author)
-                remainning_rate.text = data.retentionRatio + "%"
-                total_follower.text = data.latelyFollower.toString()
-                book_author.text = data.author
-                brief_intro.text = data.longIntro
-                category.text = data.cat
-                charater_count.text = data.wordCount.toString() + "字"
-                tag.setTags(data.tags)
-                long_info.text = data.longIntro
+                setTitle(result.title)
+                setSubTitle(result.author)
+                remainning_rate.text = result.retentionRatio + "%"
+                total_follower.text = result.latelyFollower.toString()
+                book_author.text = result.author
+                brief_intro.text = result.longIntro
+                category.text = result.cat
+                charater_count.text = result.wordCount.toString() + "字"
+                tag.setTags(result.tags)
+                long_info.text = result.longIntro
                 showContentView()
-                Log.d("@vic", Constants.IMG_BASE_URL + data.cover)
+                Log.d("@vic", Constants.IMG_BASE_URL + result.cover)
             }
         })
     }
@@ -103,13 +101,13 @@ class BookDetailActivity : BaseHeaderActivity() {
             }
 
             override fun callFailure(message: String) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
         })
     }
 
     fun getRecommendList() {
-        BookReposity.getInstanc().getBookRecommend(bookId!!, 5,object: RepositoryCallBack<RecommendList> {
+        BookReposity.getInstanc().getBookRecommend(bookId!!, 5, object : RepositoryCallBack<RecommendList> {
             override fun callFailure(message: String) {
 
             }
@@ -117,7 +115,7 @@ class BookDetailActivity : BaseHeaderActivity() {
             override fun callSuccess(data: RecommendList) {
                 recommendAdapter!!.setData(data)
             }
-        } )
+        })
     }
 
 //    fun setImageHeaderBg(imgUrl: String) {

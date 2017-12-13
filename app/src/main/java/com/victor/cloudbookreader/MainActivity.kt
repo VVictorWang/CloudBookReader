@@ -92,6 +92,4 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         }
         search_btn.setOnClickListener { startActivity(Intent(this, SearchActivity::class.java)) }
     }
-
-
 }

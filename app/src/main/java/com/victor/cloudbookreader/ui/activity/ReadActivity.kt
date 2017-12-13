@@ -14,7 +14,7 @@ import com.victor.cloudbookreader.repository.RepositoryCallBack
 import com.victor.cloudbookreader.ui.adapter.ChapterListAdapter
 import com.victor.cloudbookreader.ui.base.BaseActivity
 import com.victor.cloudbookreader.utils.CacheManager
-import com.victor.cloudbookreader.widget.RecyclerItemClickListenner
+import com.victor.cloudbookreader.utils.RecyclerItemClickListenner
 import com.victor.cloudbookreader.widget.readview.BaseReadView
 import com.victor.cloudbookreader.widget.readview.OnReadStateChangeListener
 import com.victor.cloudbookreader.widget.readview.PageWidget

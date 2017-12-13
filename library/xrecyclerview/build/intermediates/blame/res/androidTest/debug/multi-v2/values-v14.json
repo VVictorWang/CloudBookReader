@@ -4,7 +4,7 @@
             "outputFile": "/home/victor/AndroidProject/CloudBookReader/library/xrecyclerview/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-v14/values-v14.xml",
             "map": [
                 {
-                    "source": "/home/victor/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/b20e36cf91078aed753e0367aae7d54d/res/values-v14/values-v14.xml",
+                    "source": "/home/victor/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/8caa07cb2dd7659059bfbebee0f1a165/res/values-v14/values-v14.xml",
                     "from": {
                         "startLines": "2,7,8,9,15",
                         "startColumns": "4,4,4,4,4",
