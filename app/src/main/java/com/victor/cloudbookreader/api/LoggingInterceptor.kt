@@ -203,10 +203,10 @@ class LoggingInterceptor @JvmOverloads constructor(private val logger: Logger = 
                 logger.log("--> END " + request.method() + " (encoded body omitted)")
             } else {
                 val buffer = Buffer()
-                requestBody!!.writeTo(buffer)
+                requestBody?.writeTo(buffer)
 
                 var charset: Charset? = UTF8
-                val contentType = requestBody.contentType()
+                val contentType = requestBody?.contentType()
                 if (contentType != null) {
                     charset = contentType.charset(UTF8)
                 }
@@ -215,7 +215,7 @@ class LoggingInterceptor @JvmOverloads constructor(private val logger: Logger = 
                 logger.log(buffer.readString(charset!!))
 
                 logger.log(
-                        "--> END " + request.method() + " (" + requestBody.contentLength() +
+                        "--> END " + request.method() + " (" + requestBody?.contentLength() +
                                 "-byte body)")
             }
         }
