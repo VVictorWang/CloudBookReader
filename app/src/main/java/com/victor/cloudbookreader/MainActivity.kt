@@ -62,7 +62,6 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
                 PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_PHONE_STATE), 100)
         }
-
         super.onCreate(savedInstanceState)
     }
 

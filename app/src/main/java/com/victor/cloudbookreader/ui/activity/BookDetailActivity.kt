@@ -46,11 +46,6 @@ class BookDetailActivity : BaseHeaderActivity(), BookDetaiContract.View {
         recommend_books.layoutManager = MyLinearLayoutManger(this)
         recommend_books.adapter = recommendAdapter
         mPresenter.start()
-        playlist_collect_view.setOnClickListener {
-            val intent = Intent(this, ReadActivity::class.java)
-            intent.putExtra("bookId", bookId!!)
-            startActivity(intent)
-        }
         initEvent()
     }
 
@@ -58,6 +53,11 @@ class BookDetailActivity : BaseHeaderActivity(), BookDetaiContract.View {
         with(footerView) {
             add_book.setOnClickListener {
                 mPresenter.addBook(bookId!!)
+            }
+            begin_reading.setOnClickListener {
+                val intent = Intent(this@BookDetailActivity, ReadActivity::class.java)
+                intent.putExtra("bookId", bookId!!)
+                startActivity(intent)
             }
         }
     }

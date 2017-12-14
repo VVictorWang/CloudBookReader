@@ -1,16 +1,20 @@
 package com.victor.cloudbookreader.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
-import com.azoft.carousellayoutmanager.CarouselLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.victor.cloudbookreader.R
 import com.victor.cloudbookreader.bean.BookDetail
 import com.victor.cloudbookreader.bean.Constants
 import com.victor.cloudbookreader.repository.BookReposity
 import com.victor.cloudbookreader.repository.UserRepository
+import com.victor.cloudbookreader.ui.activity.ReadActivity
 import com.victor.cloudbookreader.ui.adapter.BookShelfAdapter
 import com.victor.cloudbookreader.ui.base.BaseFragment
 import com.victor.cloudbookreader.utils.NetWorkBoundUtils
 import com.victor.cloudbookreader.utils.PrefUtils
+import com.victor.cloudbookreader.utils.RecyclerItemClickListenner
 import kotlinx.android.synthetic.main.fragment_book_shelf.*
 import rx.Observable
 import rx.schedulers.Schedulers
@@ -39,13 +43,15 @@ class BookShelfFragment : BaseFragment() {
     }
 
     override fun initView() {
-        val layoutMnager = CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL, true)
+        val layoutMnager = LinearLayoutManager(context)
+        layoutMnager.orientation = LinearLayoutManager.VERTICAL
         book_list.layoutManager = layoutMnager
         book_list.setHasFixedSize(true)
         bookshelfAdapter = BookShelfAdapter(context!!, arrayListOf())
         book_list.adapter = bookshelfAdapter
         getData()
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,21 +63,24 @@ class BookShelfFragment : BaseFragment() {
     fun getData() {
         Observable.just(1).subscribeOn(Schedulers.io())
                 .doOnNext({
-                    Observable.from(UserRepository.getInstanc().getAllBookId(PrefUtils.getValue(Constants.USER_ID)!!))
-                            .subscribeOn(Schedulers.io())
-                            .doOnNext({ bookId: String? ->
-                                BookReposity.getInstanc().getBookDetail(bookId!!, object : NetWorkBoundUtils.CallBack<BookDetail> {
-                                    override fun callFailure(errorMessage: String) {
+                    PrefUtils.getValue(Constants.USER_ID)?.apply {
+                        Observable.from(UserRepository.getInstanc().getAllBookId(this))
+                                .subscribeOn(Schedulers.io())
+                                .doOnNext({ bookId: String? ->
+                                    BookReposity.getInstanc().getBookDetail(bookId!!, object : NetWorkBoundUtils.CallBack<BookDetail> {
+                                        override fun callFailure(errorMessage: String) {
 
-                                    }
+                                        }
 
-                                    override fun callSuccess(result: BookDetail) {
-                                        bookshelfAdapter!!.addData(result)
-                                    }
+                                        override fun callSuccess(result: BookDetail) {
+                                            bookshelfAdapter!!.addData(result)
+                                        }
+                                    })
+
                                 })
+                                .subscribe()
+                    }
 
-                            })
-                            .subscribe()
                 })
                 .subscribe()
 

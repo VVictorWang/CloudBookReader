@@ -52,5 +52,6 @@
     <string name="recommend_book_list">推荐书单</string>
     <string name="begin_reading">开始阅读</string>
     <string name="add_to_bookshelf">加入书架</string>
+    <string name="book_community">书籍社区</string>
 
 </resources>

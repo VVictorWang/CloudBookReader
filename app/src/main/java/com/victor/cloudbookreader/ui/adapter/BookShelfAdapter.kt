@@ -1,6 +1,7 @@
 package com.victor.cloudbookreader.ui.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.victor.cloudbookreader.R
 import com.victor.cloudbookreader.bean.BookDetail
 import com.victor.cloudbookreader.bean.Constants
+import com.victor.cloudbookreader.ui.activity.ReadActivity
 import kotlinx.android.synthetic.main.bookshelf_item.view.*
 
 /**
@@ -44,6 +46,12 @@ class BookShelfAdapter(var context: Context, var item: ArrayList<BookDetail>) : 
             LayoutInflater.from(parent.context).inflate(R.layout.bookshelf_item, null)) {
         fun bind(item: BookDetail) = with(itemView) {
             Glide.with(context).load(Constants.IMG_BASE_URL + item.cover).into(book_cover)
+            book_name.text = item.title
+            itemView.setOnClickListener {
+                val intent = Intent(context, ReadActivity::class.java)
+                intent.putExtra("bookId", item._id)
+                context.startActivity(intent)
+            }
         }
 
 
