@@ -29,11 +29,12 @@ class ReadActivity : BaseActivity() {
     private var chapterListAdapter: ChapterListAdapter? = null
 
     private var currentChapter: Int = 1
-
+    private var startRead: Boolean = false
 
     override fun getLayout() = R.layout.activity_read
 
     override fun initView() {
+        chapterListAdapter = ChapterListAdapter(this, mCharpterList, bookId!!, currentChapter)
         mPageView = PageWidget(this, bookId!!, mCharpterList, object : OnReadStateChangeListener {
             override fun onPageChanged(chapter: Int, page: Int) {
             }
@@ -43,9 +44,20 @@ class ReadActivity : BaseActivity() {
             }
 
             override fun onChapterChanged(chapter: Int) {
+                currentChapter = chapter
+                chapterListAdapter?.setcurrentChapter(currentChapter)
+                var i = chapter - 1
+                while (i <= chapter + 3 && i <= mCharpterList.size) {
+                    if (i > 0 && i != chapter
+                            && CacheManager.getInstanc().getChapterFile(bookId!!,i) == null) {
+                        readCurrentChapter(i)
+                    }
+                    i++
+                }
             }
 
             override fun onLoadChapterFailure(chapter: Int) {
+                startRead = false
             }
 
             override fun onCenterClick() {
@@ -54,7 +66,7 @@ class ReadActivity : BaseActivity() {
         })
         flReadWidget.removeAllViews()
         flReadWidget.addView(mPageView)
-        chapterListAdapter = ChapterListAdapter(this, mCharpterList, bookId!!, currentChapter)
+
         charater_list.layoutManager = LinearLayoutManager(this)
         charater_list.adapter = chapterListAdapter
 
@@ -70,7 +82,8 @@ class ReadActivity : BaseActivity() {
                 gone(charater_list_layout)
                 currentChapter = position + 1
                 chapterListAdapter!!.setcurrentChapter(currentChapter)
-                readCurrentChapter()
+                startRead = false
+                readCurrentChapter(currentChapter)
                 hideReadBar()
             }
         }))
@@ -101,13 +114,13 @@ class ReadActivity : BaseActivity() {
     /**
      * 获取当前章节。章节文件存在则直接阅读，不存在则请求
      */
-    fun readCurrentChapter() {
-        if (CacheManager.getInstanc().getChapterFile(bookId!!, currentChapter) != null) {
-            showChapterRead(null, currentChapter)
+    fun readCurrentChapter(chapter: Int) {
+        if (CacheManager.getInstanc().getChapterFile(bookId!!, chapter) != null) {
+            showChapterRead(null, chapter)
         } else {
-            BookReposity.getInstanc().getChapterContent(mCharpterList.get(currentChapter - 1).link, object : RepositoryCallBack<ChapterDetail> {
+            BookReposity.getInstanc().getChapterContent(mCharpterList.get(chapter - 1).link, object : RepositoryCallBack<ChapterDetail> {
                 override fun callSuccess(data: ChapterDetail) {
-                    showChapterRead(data.chapter, currentChapter)
+                    showChapterRead(data.chapter, chapter)
                 }
 
                 override fun callFailure(message: String) {
@@ -122,8 +135,16 @@ class ReadActivity : BaseActivity() {
         if (data != null) {
             CacheManager.getInstanc().saveChapterFile(bookId!!, chapter, data)
         }
-        currentChapter = chapter
-        mPageView!!.jumpToChapter(currentChapter)
+        if (!startRead) {
+            startRead = true
+            currentChapter = chapter
+            if (!mPageView?.isPrepared!!) {
+                mPageView?.init(0)
+            } else {
+                mPageView!!.jumpToChapter(currentChapter)
+            }
+        }
+
     }
 
     fun getData() {
@@ -174,5 +195,24 @@ class ReadActivity : BaseActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
-
+    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_BACK -> return if (isVisible(charater_list_layout)) {
+                gone(charater_list_layout)
+                true
+            } else {
+                onBackPressed()
+                true
+            }
+            KeyEvent.KEYCODE_VOLUME_DOWN -> {
+                mPageView?.nextPage()
+                return true
+            }
+            KeyEvent.KEYCODE_VOLUME_UP -> {
+                mPageView?.prePage()
+                return true
+            }
+        }
+        return super.onKeyUp(keyCode, event)
+    }
 }

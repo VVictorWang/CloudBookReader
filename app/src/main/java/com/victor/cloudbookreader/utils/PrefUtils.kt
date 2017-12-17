@@ -13,6 +13,8 @@ import com.victor.cloudbookreader.ReaderApplication
  * @blog www.victorwan.cn                                            #
  */
 object PrefUtils {
+
+    val DEFAULT_INT = -1
     /**
      * 移除SharedPreference
      */
@@ -47,7 +49,7 @@ object PrefUtils {
         edit.commit()
     }
 
-    fun getIntValue(context: Context = ReaderApplication.readerApplication, key: String, defaultValue: Int): Int {
+    fun getIntValue(key: String, defaultValue: Int = DEFAULT_INT, context: Context = ReaderApplication.readerApplication): Int {
         return getSharedPreference(context).getInt(key, defaultValue)
     }
 
@@ -83,8 +85,8 @@ object PrefUtils {
     /**
      * 设置SharedPreference 值
      */
-    fun putIntValue(context: Context = ReaderApplication.readerApplication, key: String,
-                    value: Int): Boolean {
+    fun putIntValue(key: String,
+                    value: Int, context: Context = ReaderApplication.readerApplication): Boolean {
         val editor = getSharedPreference(context).edit()
         editor.putInt(key, value)
         val result = editor.commit()

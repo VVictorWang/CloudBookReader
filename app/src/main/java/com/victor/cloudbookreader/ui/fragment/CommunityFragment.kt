@@ -10,6 +10,7 @@ class CommunityFragment : BaseFragment() {
     }
 
     override fun initView() {
+
     }
 
 

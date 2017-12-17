@@ -25,7 +25,7 @@ abstract class BaseActivity : AppCompatActivity() {
     protected abstract fun initEvent()
 
     protected fun gone(vararg views: View) {
-        if (views.size > 0) {
+        if (views.isNotEmpty()) {
             for (view in views) {
                 view.visibility = View.GONE
             }
@@ -33,7 +33,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     protected fun visible(vararg views: View) {
-        if (views.size > 0) {
+        if (views.isNotEmpty()) {
             for (view in views) {
                 view.visibility = View.VISIBLE
             }

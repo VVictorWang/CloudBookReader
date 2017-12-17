@@ -17,6 +17,9 @@ object Constants {
 
     val USER_ID = "user_id"
     val DEFAULT_USER = "default"
+    val START_POS = "start_pos"
+    val END_POS = "end_pos"
+    val CURRENT_CHAPETR = "current_chaper"
 
     val IMG_BASE_URL = "http://statics.zhuishushenqi.com"
 

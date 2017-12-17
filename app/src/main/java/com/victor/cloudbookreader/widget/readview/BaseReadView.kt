@@ -18,8 +18,10 @@ import android.widget.Scroller
 import com.victor.cloudbookreader.ReaderApplication
 
 import com.victor.cloudbookreader.bean.BookChapter
+import com.victor.cloudbookreader.utils.CacheManager
 import com.victor.cloudbookreader.utils.screenHeight
 import com.victor.cloudbookreader.utils.screenWidth
+import com.victor.cloudbookreader.utils.toast
 
 /**
  * @author yuyh.
@@ -58,7 +60,6 @@ abstract class BaseReadView(context: Context, protected var bookId: String, chap
         get() = pagefactory!!.headLineStr.replace("@".toRegex(), "")
 
     init {
-
         mScreenWidth = ReaderApplication.readerApplication.screenWidth
         mScreenHeight = ReaderApplication.readerApplication.screenHeight
 
@@ -78,19 +79,17 @@ abstract class BaseReadView(context: Context, protected var bookId: String, chap
         if (!isPrepared) {
             try {
                 //                pagefactory.setBgBitmap(ThemeManager.getThemeDrawable(theme));
-                //                // 自动跳转到上次阅读位置
-                //                int pos[] = SettingManager.getInstance().getReadProgress(bookId);
-                val ret = pagefactory!!.openBook(1, intArrayOf(1, 2))
-
+                // 自动跳转到上次阅读位置
+                val poses = CacheManager.getInstanc().getCurrentReadPos(bookId)
+                val ret = pagefactory?.openBook(poses[0], poses.sliceArray(IntRange(1, 2)))
                 if (ret == 0) {
-                    listener.onLoadChapterFailure(1)
+                    listener.onLoadChapterFailure(poses[0])
                     return
                 }
                 pagefactory!!.onDraw(mCurrentPageCanvas)
                 postInvalidate()
             } catch (e: Exception) {
             }
-
             isPrepared = true
         }
     }
@@ -125,14 +124,16 @@ abstract class BaseReadView(context: Context, protected var bookId: String, chap
                             return false
                         }
                     } else if (actiondownX >= mScreenWidth / 2) {// 从右翻
-                        val status = pagefactory!!.nextPage()
+                        val status = pagefactory?.nextPage()
                         if (status == BookStatus.NO_NEXT_PAGE) {
+                            context.toast("没有下一页啦!")
                             //                            ToastUtils.showSingleToast("没有下一页啦");
                             return false
                         } else if (status == BookStatus.LOAD_SUCCESS) {
                             abortAnimation()
                             pagefactory!!.onDraw(mNextPageCanvas)
                         } else {
+                            context.toast("加载失败!")
                             return false
                         }
                     }
@@ -243,7 +244,7 @@ abstract class BaseReadView(context: Context, protected var bookId: String, chap
 
     open fun jumpToChapter(chapter: Int) {
         resetTouchPoint()
-        pagefactory!!.openBook(chapter, intArrayOf(0, 1))
+        pagefactory!!.openBook(chapter, intArrayOf(0, 0))
         pagefactory!!.onDraw(mCurrentPageCanvas)
         pagefactory!!.onDraw(mNextPageCanvas)
         postInvalidate()

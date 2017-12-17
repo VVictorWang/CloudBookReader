@@ -3,6 +3,7 @@ package com.victor.cloudbookreader.widget.readview
 import android.content.Context
 import android.graphics.*
 import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.widget.ProgressBar
 import com.victor.cloudbookreader.R
 import com.victor.cloudbookreader.ReaderApplication
@@ -186,6 +187,7 @@ class PageFactory(private val mContext: Context,
             val file = File(path)
             val length = file.length()
             if (length > 10) {
+                Log.d("@vic", "length>10")
                 mbBufferLen = length.toInt()
                 // 创建文件通道，映射为MappedByteBuffer
                 mbBuff = RandomAccessFile(file, "r")
@@ -198,9 +200,9 @@ class PageFactory(private val mContext: Context,
                 return 1
             }
         } catch (e: IOException) {
+            Log.d("@vic",e.message)
             e.printStackTrace()
         }
-
         return 0
     }
 
@@ -251,6 +253,7 @@ class PageFactory(private val mContext: Context,
             val mTime = dateFormat.format(Date())
             canvas.drawText(mTime, (mWidth - marginWidth - timeLen).toFloat(), (mHeight - marginHeight).toFloat(),
                     mTitlePaint)
+            CacheManager.getInstanc().putCurrentRead(bookId, currentChapter, curBeginPos, curEndPos)
 
             //            // 保存阅读进度
             //            SettingManager.getInstance().saveReadProgress(bookId, currentChapter, curBeginPos,
@@ -581,7 +584,7 @@ class PageFactory(private val mContext: Context,
 
     private fun onChapterChanged(chapter: Int) {
         if (listener != null)
-            listener!!.onChapterChanged(chapter)
+            listener?.onChapterChanged(chapter)
     }
 
     private fun onPageChanged(chapter: Int, page: Int) {

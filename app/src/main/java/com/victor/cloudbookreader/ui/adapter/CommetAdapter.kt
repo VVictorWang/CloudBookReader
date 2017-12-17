@@ -2,12 +2,14 @@ package com.victor.cloudbookreader.ui.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.victor.cloudbookreader.R
 import com.victor.cloudbookreader.bean.Constants
 import com.victor.cloudbookreader.bean.HotComment
+import com.victor.cloudbookreader.utils.formatAgoStyleForWeChat
 import kotlinx.android.synthetic.main.comment_item.view.*
 
 /**
@@ -47,6 +49,7 @@ class CommetAdapter(var context: Context, var item: HotComment? = null) : Recycl
             comment.text = item.content
             rating.setCountSelected(item.rating)
             tvHelpfulYes.text = item.helpful.total.toString()
+            time.text = formatAgoStyleForWeChat(item.updated)
 
         }
 
