@@ -270,7 +270,6 @@ abstract class BaseHeaderActivity : AppCompatActivity() {
             val ivTitleHeadBgParams = iv_base_titlebar_bg.layoutParams as ViewGroup.MarginLayoutParams
             val marginTop = params.height - headerBgHeight
             ivTitleHeadBgParams.setMargins(0, -marginTop, 0, 0)
-
             iv_base_titlebar_bg.imageAlpha = 0
             StatusBarUtils.setTranslucentImageHeader(this@BaseHeaderActivity, 0, tb_base_title)
         }
